@@ -1,0 +1,19 @@
+{
+  "name": "wuneng-bot",
+  "version": "0.0.1",
+  "description": "This is a ultimate discord bot with a lot of function.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/quangpao/wuneng-bot.git"
+  },
+  "author": "quangpao",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/quangpao/wuneng-bot/issues"
+  },
+  "homepage": "https://gitlab.com/quangpao/wuneng-bot#readme"
+}
