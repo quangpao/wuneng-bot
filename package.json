@@ -16,7 +16,7 @@
     "url": "https://gitlab.com/quangpao/wuneng-bot/issues"
   },
   "homepage": "https://gitlab.com/quangpao/wuneng-bot#readme",
-  "devDependencies": {
+  "dependencies": {
     "@discordjs/builders": "^1.4.0",
     "@discordjs/opus": "^0.8.0",
     "@discordjs/rest": "^1.5.0",
