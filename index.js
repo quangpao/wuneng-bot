@@ -1,1 +1,1 @@
-require('./deploy/bot')
+require("./deploy/bot");
