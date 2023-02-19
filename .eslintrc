@@ -14,7 +14,7 @@
         "default-case-last": "warn",
         "eqeqeq": "error",
         "max-depth": ["error", 4],
-        "max-lines-per-function": ["error", { "max": 20, "skipComments": true }],
+        "max-lines-per-function": ["error", { "max": 80, "skipComments": true }],
         "no-else-return": "warn",
         "no-empty": "warn",
         "no-empty-function": "warn",
@@ -40,7 +40,8 @@
 		"space-infix-ops": "error",
 		"space-unary-ops": "error",
 		"spaced-comment": "error",
-		"yoda": "error"
+		"yoda": "error",
+		"no-unused-vars": "warn"
 
 		
 	}
