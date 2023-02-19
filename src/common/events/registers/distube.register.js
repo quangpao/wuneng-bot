@@ -1,9 +1,9 @@
 // eslint-disable-next-line no-unused-vars
-const { Client } = require('discord.js')
-const { SoundCloudPlugin } = require('@distube/soundcloud')
-const { SpotifyPlugin } = require('@distube/spotify')
-const { DisTube } = require('distube')
-const config = require('../../config');
+const { Client } = require("discord.js");
+const { SoundCloudPlugin } = require("@distube/soundcloud");
+const { SpotifyPlugin } = require("@distube/spotify");
+const { DisTube } = require("distube");
+const config = require("../../config");
 const _64GiB = 67108864;
 
 /**
@@ -35,4 +35,4 @@ module.exports = (client) => {
       }),
     ],
   });
-}
+};
