@@ -1,14 +1,14 @@
 /* eslint-disable no-unused-vars */
 const {
   ButtonInteraction,
-  Client,
   ChatInputCommandInteraction,
   Interaction,
 } = require("discord.js");
+const WNClient = require("../classes/WNClient");
 
 /**
  * @param {ChatInputCommandInteraction} interaction
- * @param {Client} client
+ * @param {WNClient} client
  */
 const slashCommandHandler = async (interaction, client) => {
   const command = client.slashCommands.get(interaction.commandName);
@@ -23,7 +23,7 @@ const slashCommandHandler = async (interaction, client) => {
 
 /**
  * @param {ButtonInteraction} interaction
- * @param {Client} client
+ * @param {WNClient} client
  */
 const buttonHandler = async (interaction, client) => {
   const [ customId, extraData ] = interaction.customId.split("_");
@@ -41,7 +41,7 @@ const buttonHandler = async (interaction, client) => {
 module.exports = {
   /**
    * @param {Interaction} interaction
-   * @param {Client} client
+   * @param {WNClient} client
    */
   interactionHandler: async (interaction, client) => {
     if (interaction.isButton()) {

@@ -1,21 +1,16 @@
 // eslint-disable-next-line no-unused-vars
-const { Client } = require("discord.js");
+const WNClient = require("../classes/WNClient");
 const { REST } = require("@discordjs/rest");
 const { Routes } = require("discord-api-types/v10");
 
 require("dotenv").config();
 const { TOKENID, CLIENTID } = process.env;
-const {
-  interactionHandler,
-} = require("../src/common/handlers/interaction.handler");
 
 /**
- * @param {Client} client
+ *
+ * @param {WNClient} client
  */
 module.exports = (client) => {
-  client.slashCommandsRegister();
-  client.buttonCommandsRegister();
-
   client.on("ready", (client) => {
     const guildIds = client.guilds.cache.map((guild) => guild.id);
     const rest = new REST({ version: "10" }).setToken(TOKENID);
@@ -31,10 +26,4 @@ module.exports = (client) => {
 
     console.log(`Logged in as ${client.user.tag}!`);
   });
-
-  client.on("interactionCreate", (interaction) => {
-    interactionHandler(interaction, client);
-  });
-
-  client.login(TOKENID);
 };
