@@ -1,14 +1,5 @@
-const { Client, GatewayIntentBits } = require("discord.js");
+const WNClient = require("../src/common/classes/WNClient");
 
-const client = new Client({
-  intents: [
-    GatewayIntentBits.Guilds,
-    GatewayIntentBits.GuildMessages,
-    GatewayIntentBits.GuildVoiceStates,
-  ],
-});
+const client = new WNClient();
 
-require("../src/common/events/registers/slash-command.register")(client);
-require("../src/common/events/registers/button-command.register")(client);
-require("../src/common/events/registers/distube.register")(client);
 require("./deploy")(client);

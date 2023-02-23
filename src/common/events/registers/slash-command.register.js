@@ -1,31 +1,26 @@
 // eslint-disable-next-line no-unused-vars
-const { Client, Collection } = require("discord.js");
+const WNClient = require("../src/common/classes/WNClient");
 const { readdirSync } = require("fs");
 
 /**
- * @param {Client} client
+ * @param {WNClient} client
  */
 module.exports = (client) => {
-  client.slashCommands = new Collection();
-  client.slashCommandArray = [];
+  const projectFolders = readdirSync("./src/main", { withFileTypes: true })
+    .filter((dir) => dir.isDirectory())
+    .map((dir) => dir.name);
 
-  client.slashCommandsRegister = async () => {
-    const projectFolders = readdirSync("./src/main", { withFileTypes: true })
-      .filter((dir) => dir.isDirectory())
-      .map((dir) => dir.name);
+  for (const folder of projectFolders) {
+    const commandsFiles = readdirSync(
+      `./src/main/${folder}/commands/slash_commands`
+    ).filter((file) => file.endsWith(".js"));
 
-    for (const folder of projectFolders) {
-      const commandsFiles = readdirSync(
-        `./src/main/${folder}/commands/slash_commands`
-      ).filter((file) => file.endsWith(".js"));
-
-      const { slashCommands, slashCommandArray } = client;
-      for (const file of commandsFiles) {
-        const command = require(`../../../main/${folder}/commands/slash_commands/${file}`);
-        slashCommands.set(command.data.name, command);
-        slashCommandArray.push(command.data.toJSON());
-        console.log(`Slash command ${command.data.name} loaded!`);
-      }
+    const { slashCommands, slashCommandArray } = client;
+    for (const file of commandsFiles) {
+      const command = require(`../../../main/${folder}/commands/slash_commands/${file}`);
+      slashCommands.set(command.data.name, command);
+      slashCommandArray.push(command.data.toJSON());
+      console.log(`Slash command ${command.data.name} loaded!`);
     }
-  };
+  }
 };
