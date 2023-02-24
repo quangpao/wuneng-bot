@@ -57,7 +57,7 @@ class WNClient extends Client {
   }
 
   start(token) {
-    [ "slash-command.register", "button-command.register" ].forEach(
+    ["slash-command.register"].forEach( // , "button-command.register"
       (register) => {
         require(`../events/registers/${register}`)(this);
       }

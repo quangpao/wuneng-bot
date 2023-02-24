@@ -38,16 +38,16 @@ const buttonHandler = async (interaction, client) => {
   }
 };
 
-module.exports = {
-  /**
-   * @param {Interaction} interaction
-   * @param {WNClient} client
-   */
-  interactionHandler: async (interaction, client) => {
-    if (interaction.isButton()) {
-      buttonHandler(interaction, client);
-    } else if (interaction.isChatInputCommand()) {
-      slashCommandHandler(interaction, client);
-    }
-  },
-};
+/**
+ * @param {Interaction} interaction
+ * @param {WNClient} client
+ */
+const interactionHandler = async (interaction, client) => {
+  if (interaction.isButton()) {
+    buttonHandler(interaction, client);
+  } else if (interaction.isChatInputCommand()) {
+    slashCommandHandler(interaction, client);
+  }
+}
+
+module.exports = interactionHandler;
