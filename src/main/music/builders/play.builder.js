@@ -2,7 +2,9 @@ const {
   SlashCommandBuilder,
   ButtonBuilder,
   EmbedBuilder,
+  GuildMember,
 } = require("discord.js");
+const { Song } = require("distube");
 const { SUCCESS } = require("../../../common/utils/color");
 
 module.exports = {
@@ -29,6 +31,12 @@ module.exports = {
     return builder;
   },
 
+  /**
+   *
+   * @param {Song} song
+   * @param {GuildMember} member
+   * @returns
+   */
   embedBuilder: (song, member) => {
     const embed = new EmbedBuilder()
       .setTitle("🎶 Now Playing")

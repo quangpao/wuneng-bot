@@ -1,5 +1,4 @@
-// eslint-disable-next-line no-unused-vars
-const WNClient = require("../src/common/classes/WNClient");
+const WNClient = require("../../classes/WNClient");
 const { readdirSync } = require("fs");
 
 /**
