@@ -5,20 +5,19 @@ const {
   GuildMember,
 } = require("discord.js");
 const { Song } = require("distube");
-const { SUCCESS } = require("../../../common/utils/color");
+const { SUCCESS } = require("../../../common/utils/Color");
 
 module.exports = {
   slashBuilder: () => {
     const builder = new SlashCommandBuilder()
       .setName("play")
       .setDescription("Play a song in a voice channel")
-      .addStringOption((option) => {
+      .addStringOption((option) =>
         option
           .setName("song")
-          .setDescription("The song you want to play")
-          .setRequired(true);
-      });
-
+          .setDescription("Input the song name")
+          .setRequired(true)
+      );
     return builder;
   },
 
