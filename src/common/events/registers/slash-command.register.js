@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 const WNClient = require("../../classes/WNClient");
 const { readdirSync } = require("fs");
 
@@ -11,9 +10,11 @@ module.exports = (client) => {
     .map((dir) => dir.name);
 
   for (const folder of projectFolders) {
-    const commandsFiles = readdirSync(
+    let commandsFiles = readdirSync(
       `./src/main/${folder}/commands/slash_commands`
-    ).filter((file) => file.endsWith(".js"));
+    );
+    if (!commandsFiles) continue;
+    commandsFiles = commandsFiles.filter((file) => file.endsWith(".js"));
 
     const { slashCommands, slashCommandArray } = client;
     for (const file of commandsFiles) {

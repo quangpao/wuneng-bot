@@ -10,9 +10,11 @@ module.exports = (client) => {
     .map((dirent) => dirent.name);
 
   for (const folder of projectFolders) {
-    const commandsFiles = readdirSync(
+    let commandsFiles = readdirSync(
       `./src/main/${folder}/commands/button_commands`
-    ).filter((file) => file.endsWith(".js"));
+    );
+    if (!commandsFiles) continue;
+    commandsFiles = commandsFiles.filter((file) => file.endsWith(".js"));
 
     const { buttonCommands } = client;
     for (const file of commandsFiles) {
