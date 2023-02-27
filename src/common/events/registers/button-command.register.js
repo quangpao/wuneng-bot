@@ -19,8 +19,8 @@ module.exports = (client) => {
     const { buttonCommands } = client;
     for (const file of commandsFiles) {
       const command = require(`../../../main/${folder}/commands/button_commands/${file}`);
-      buttonCommands.set(command.data.name, command);
-      console.log(`Button command ${command.data.name} loaded!`);
+      buttonCommands.set(command.data.custom_id, command);
+      console.log(`Button command ${command.data.custom_id} loaded!`);
     }
   }
 };

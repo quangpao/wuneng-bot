@@ -1,11 +1,8 @@
 const {
   SlashCommandBuilder,
   ButtonBuilder,
-  EmbedBuilder,
-  GuildMember,
 } = require("discord.js");
-const { Song } = require("distube");
-const { SUCCESS } = require("../../../common/utils/Color");
+const Emoji = require("../../../common/utils/Emoji");
 
 module.exports = {
   slashBuilder: () => {
@@ -25,29 +22,9 @@ module.exports = {
     const builder = new ButtonBuilder()
       .setCustomId("play")
       .setStyle("PRIMARY")
-      .setLabel("▶")
+      .setEmoji(Emoji.playId)
       .setDisabled(true);
     return builder;
   },
-
-  /**
-   *
-   * @param {Song} song
-   * @param {GuildMember} member
-   * @returns
-   */
-  embedBuilder: (song, member) => {
-    const embed = new EmbedBuilder()
-      .setTitle("🎶 Now Playing")
-      .setDescription(`[${song.name}](${song.url})`)
-      .setThumbnail(song.thumbnail)
-      .setColor(SUCCESS.LIGHT)
-      .setFooter({
-        text: `Requested by ${member.nickname}`,
-        iconURL: member.user.displayAvatarURL({ dynamic: true }),
-      })
-      .setTimestamp();
-
-    return embed;
-  },
 };
+
