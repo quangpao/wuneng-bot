@@ -13,12 +13,12 @@ module.exports = (client) => {
     });
   });
 
-  // client.distube.on("addList", (queue, playlist) => {
-  //   console.log(queue, playlist);
-  //   queue.textChannel.send({
-  //     embeds: [PlayBuilder.AddList(playlist)]
-  //   })
-  // })
+  client.distube.on("addList", (queue, playlist) => {
+    console.log(queue, playlist);
+    queue.textChannel.send({
+      embeds: [PlayBuilder.AddPlaylist(playlist)]
+    })
+  })
 
   client.distube.on("addSong", (queue, song) => {
     console.log(queue, song)
