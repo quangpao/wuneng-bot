@@ -60,13 +60,10 @@ class WNClient extends Client {
     [
       "slash-command.register",
       "events.register.js",
-      // "button-command.register",
-    ].forEach(
-      // , "button-command.register"
-      (register) => {
-        require(`../events/registers/${register}`)(this);
-      }
-    );
+      "button-command.register",
+    ].forEach((register) => {
+      require(`../events/registers/${register}`)(this);
+    });
 
     require("../handlers/client.handler")(this);
 

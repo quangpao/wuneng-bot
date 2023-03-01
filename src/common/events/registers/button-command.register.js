@@ -1,5 +1,5 @@
 const WNClient = require("../../classes/WNClient");
-const { readdirSync } = require("fs");
+const { readdirSync, existsSync } = require("fs");
 
 /**
  * @param {WNClient} client
@@ -10,17 +10,17 @@ module.exports = (client) => {
     .map((dirent) => dirent.name);
 
   for (const folder of projectFolders) {
-    let commandsFiles = readdirSync(
+    if (!existsSync(`./src/main/${folder}/commands/button_commands`)) continue;
+
+    const commandsFiles = readdirSync(
       `./src/main/${folder}/commands/button_commands`
-    );
-    if (!commandsFiles) continue;
-    commandsFiles = commandsFiles.filter((file) => file.endsWith(".js"));
+    ).filter((file) => file.endsWith(".js"));
 
     const { buttonCommands } = client;
     for (const file of commandsFiles) {
       const command = require(`../../../main/${folder}/commands/button_commands/${file}`);
-      buttonCommands.set(command.data.custom_id, command);
-      console.log(`Button command ${command.data.custom_id} loaded!`);
+      buttonCommands.set(command.data.data.custom_id, command);
+      console.log(`Button command ${command.data.data.custom_id} loaded!`);
     }
   }
 };

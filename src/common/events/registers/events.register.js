@@ -1,5 +1,5 @@
 const WNClient = require("../../classes/WNClient");
-const { readdirSync } = require("fs");
+const { readdirSync, existsSync } = require("fs");
 
 /**
  * @param {WNClient} client
@@ -10,10 +10,11 @@ module.exports = (client) => {
     .map((dir) => dir.name);
 
   for (const folder of projectFolders) {
-    let eventFolders = readdirSync(`./src/main/${folder}/events`);
-    if (!eventFolders) continue;
+    if (!existsSync(`./src/main/${folder}/events`)) continue;
 
-    eventFolders = eventFolders.filter((file) => file.endsWith(".js"));
+    const eventFolders = readdirSync(`./src/main/${folder}/events`).filter(
+      (file) => file.endsWith(".js")
+    );
 
     for (const file of eventFolders) {
       require(`../../../main/${folder}/events/${file}`)(client);

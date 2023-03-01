@@ -1,7 +1,4 @@
-const {
-  SlashCommandBuilder,
-  ButtonBuilder,
-} = require("discord.js");
+const { SlashCommandBuilder, ButtonBuilder } = require("discord.js");
 const Emoji = require("../../../common/utils/Emoji");
 
 module.exports = {
@@ -20,11 +17,10 @@ module.exports = {
 
   buttonBuilder: () => {
     const builder = new ButtonBuilder()
-      .setCustomId("play")
+      .setCustomId("playbtn")
       .setStyle("PRIMARY")
       .setEmoji(Emoji.playId)
       .setDisabled(true);
     return builder;
   },
 };
-
