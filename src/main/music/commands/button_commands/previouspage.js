@@ -1,7 +1,7 @@
 const { ButtonInteraction } = require("discord.js");
 const { DisTube } = require("distube");
 const ActionRowBuilder = require("../../builders/action-row.builder");
-const { Queue } = require("../../builders/embeds/queue.embed");
+const { Queue, QueueEmpty } = require("../../builders/embeds/queue.embed");
 const { previousPageButtonBuilder } = require("../../builders/queue.builder");
 
 module.exports = {
@@ -14,7 +14,8 @@ module.exports = {
    */
   execute: async (interaction, { distube }) => {
     const queue = distube.getQueue(interaction.guildId);
-    if (queue === undefined) return await interaction.reply(); // return if queue is empty
+    if (queue === undefined)
+      return await interaction.reply({ embeds: [QueueEmpty()] });
 
     const queueLength = queue.songs.length;
 

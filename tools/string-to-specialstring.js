@@ -1,5 +1,4 @@
-/* eslint-disable no-magic-numbers */
-const string = "uploader".toUpperCase();
+const string = "The bot need".toUpperCase();
 
 const mask = "ᴀʙᴄᴅᴇғɢʜɪᴊᴋʟᴍɴᴏᴘQʀsᴛᴜᴠᴡxʏᴢ";
 const qChar = "ǫ";

@@ -8,8 +8,10 @@ const PlayBuilder = require("../../builders/play.builder");
 const Permission = require("../../../../common/messages/permissions");
 const {
   InsufficientPermissionEmbedBuilder,
+  NotInVoiceChannelEmbedBuilder,
 } = require("../../../../common/builders/General");
 const Emoji = require("../../../../common/utils/Emoji");
+const { joinSpeakerCheck } = require("../../utils/permission.check");
 module.exports = {
   data: PlayBuilder.slashBuilder(),
 
@@ -21,14 +23,11 @@ module.exports = {
   execute: async (interaction, { distube }) => {
     const /** @type {VoiceChannel} */ channel =
         interaction.member?.voice?.channel;
-    if (!channel.joinable)
+    if (channel === undefined || channel === null)
       return await interaction.reply({
-        embeds: [InsufficientPermissionEmbedBuilder(Permission.CONNECT)],
+        embeds: [NotInVoiceChannelEmbedBuilder()],
       });
-    if (!channel.speakable)
-      return await interaction.reply({
-        embeds: [InsufficientPermissionEmbedBuilder(Permission.SPEAK)],
-      });
+    if (!joinSpeakerCheck(interaction, channel)) return;
     if (
       !interaction.channel
         .permissionsFor(interaction.guild.members.me)
