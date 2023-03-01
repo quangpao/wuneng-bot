@@ -17,7 +17,11 @@ module.exports = {
       .setThumbnail(song.thumbnail)
       .setColor(Color.INFO.LIGHT)
       .setFooter({
-        text: `Requested by ${song.member.nickname}`,
+        text: `Requested by ${
+          song.member.nickname === null
+            ? song.member.user.username
+            : song.member.nickname
+        }`,
         iconURL: song.member.user.displayAvatarURL({ dynamic: true }),
       })
       .setTimestamp();
@@ -46,7 +50,11 @@ module.exports = {
       )
       .setColor(Color.SUCCESS.LIGHT)
       .setFooter({
-        text: "Requested by " + song.member.nickname,
+        text: `Requested by ${
+          song.member.nickname === null
+            ? song.member.user.username
+            : song.member.nickname
+        }`,
         iconURL: song.member.user.displayAvatarURL({ dynamic: true }),
       })
       .setTimestamp();
@@ -62,7 +70,9 @@ module.exports = {
       .setTitle(`${Emoji.playlist} - ᴘʟᴀʏʟɪsᴛ ᴀᴅᴅᴇᴅ`)
       .addFields({
         name: `ᴘʟᴀʏʟɪsᴛ ɪɴғᴏʀᴍᴀᴛɪᴏɴ`,
-        value: `${bold("ɴᴀᴍᴇ")}: [${playlist.name}](${playlist.url})\n${bold("ᴘʟᴀʏʟɪsᴛ ʟᴇɴɢᴛʜ")}: ${playlist.songs.length}\n———`
+        value: `${bold("ɴᴀᴍᴇ")}: [${playlist.name}](${playlist.url})\n${bold(
+          "ᴘʟᴀʏʟɪsᴛ ʟᴇɴɢᴛʜ"
+        )}: ${playlist.songs.length}\n———`,
       })
       .setImage(playlist.thumbnail)
       .setThumbnail(
@@ -70,21 +80,25 @@ module.exports = {
       )
       .setColor(Color.SUCCESS.MAIN)
       .setFooter({
-        text: "Requested by " + playlist.member.nickname,
+        text: `Requested by ${
+          playlist.member.nickname === null
+            ? playlist.member.user.username
+            : playlist.member.nickname
+        }`,
         iconURL: playlist.member.user.displayAvatarURL({ dynamic: true }),
       })
       .setTimestamp();
 
-      let limit = 4;
-      if (playlist.songs.length < limit) limit = playlist.songs.length;
-      for (let x = 1; x <= limit ; x++) {
-        embed.addFields({
-          name: `sᴏɴɢ #${eval(`Emoji.a${x}`)}`,
-          // eslint-disable-next-line no-magic-numbers
-          value: `[${playlist.songs[x - 1].name}](${playlist.songs[x - 1].url})`
-        })
-      }
+    let limit = 4;
+    if (playlist.songs.length < limit) limit = playlist.songs.length;
+    for (let x = 1; x <= limit; x++) {
+      embed.addFields({
+        name: `sᴏɴɢ #${eval(`Emoji.a${x}`)}`,
+        // eslint-disable-next-line no-magic-numbers
+        value: `[${playlist.songs[x - 1].name}](${playlist.songs[x - 1].url})`,
+      });
+    }
 
     return embed;
-  }
+  },
 };

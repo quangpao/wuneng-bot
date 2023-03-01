@@ -26,4 +26,18 @@ module.exports = (client) => {
 
     console.log(`Logged in as ${client.user.tag}!`);
   });
+
+  client.on("guildCreate", (guild) => {
+    console.log(
+      `Joined a new guild: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`
+    );
+    const rest = new REST({ version: "10" }).setToken(TOKENID);
+
+    rest
+      .put(Routes.applicationCommands(CLIENTID, guild.id), {
+        body: client.slashCommandArray,
+      })
+      .then(() => console.log(`Deployed slash commands to ${guild.id}`))
+      .catch(console.error);
+  });
 };

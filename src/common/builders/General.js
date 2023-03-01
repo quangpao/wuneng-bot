@@ -4,11 +4,19 @@ const { ERROR } = require("../utils/Color");
 module.exports = {
   InsufficientPermissionEmbedBuilder: (permission) => {
     const embed = new EmbedBuilder()
-      .setTitle("Insufficient Permission")
+      .setTitle("ɪɴsᴜғғɪᴄɪᴇɴᴛ ᴘᴇʀᴍɪssɪᴏɴ")
       .setDescription(
-        `The bot need ${permission} permission to use this command`
+        `ᴛʜᴇ ʙᴏᴛ ɴᴇᴇᴅ ${permission} ᴘᴇʀᴍɪssɪᴏɴ ᴛᴏ ᴜsᴇ ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ`
       )
       .setColor(ERROR.LIGHT);
+    return embed;
+  },
+
+  NotInVoiceChannelEmbedBuilder: () => {
+    const embed = new EmbedBuilder()
+      .setTitle("ɴᴏᴛ ɪɴ ᴀ ᴠᴏɪᴄᴇ ᴄʜᴀɴɴᴇʟ")
+      .setDescription("ᴘʟᴇᴀsᴇ ᴊᴏɪɴ ᴀ ᴠᴏɪᴄᴇ ᴄʜᴀɴɴᴇʟ ᴛᴏ ᴜsᴇ ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ")
+      .setColor(ERROR.DARK);
     return embed;
   },
 };

@@ -7,26 +7,29 @@ const PlayBuilder = require("../builders/embeds/distube-event.embed");
  */
 module.exports = (client) => {
   client.distube.on("playSong", (queue, song) => {
-    console.log(queue, song);
+    if (queue.autoplay) return;
     queue.textChannel.send({
       embeds: [PlayBuilder.PlaySong(song)],
     });
   });
 
   client.distube.on("addList", (queue, playlist) => {
-    console.log(queue, playlist);
     queue.textChannel.send({
-      embeds: [PlayBuilder.AddPlaylist(playlist)]
-    })
-  })
+      embeds: [PlayBuilder.AddPlaylist(playlist)],
+    });
+  });
 
   client.distube.on("addSong", (queue, song) => {
-    console.log(queue, song)
     queue.textChannel.send({
-      embeds: [PlayBuilder.AddSong(song)]
-    })
-  })
-/*
+      embeds: [PlayBuilder.AddSong(song)],
+    });
+  });
+
+  client.distube.on("noRelated", (queue) => {
+    console.log(queue);
+    // TODO
+  });
+  /*
   client.distube.on("deleteQueue", (queue) => {
     console.log(queue)
     // TODO
@@ -49,11 +52,6 @@ module.exports = (client) => {
 
   client.distube.on("error", (channel, error) => {
     console.log(channel, error)
-    // TODO
-  })
-
-  client.distube.on("noRelated", (queue) => {
-    console.log(queue)
     // TODO
   })
 

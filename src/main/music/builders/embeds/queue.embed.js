@@ -16,7 +16,7 @@ module.exports = {
       .setDescription(`**ɴᴏᴡ ᴘʟᴀʏɪɴɢ**: [${songs[0].name}](${songs[0].url})`)
       .addFields({
         name: "ǫᴜᴇᴜᴇ ɪɴғᴏʀᴍᴀᴛɪᴏɴ:",
-        value: `sᴏɴɢs: ${songs.length}\nᴅᴜʀᴀᴛɪᴏɴ: [${queue.formattedCurrentTime}/${queue.formattedDuration}]\nɪɴ: \`${queue.voiceChannel.name}\`\n———`,
+        value: `sᴏɴɢs: ${songs.length}\nᴅᴜʀᴀᴛɪᴏɴ: [${queue.formattedCurrentTime}/${queue.formattedDuration}]\nɪɴ: [${queue.voiceChannel.name}](${queue.voiceChannel.url})\n———`,
       })
       .setThumbnail(songs[0].thumbnail)
       .setColor(Color.INFO.DARK)
@@ -34,6 +34,40 @@ module.exports = {
         value: `ᴜᴘʟᴏᴀᴅᴇʀ: [${songs[i].uploader.name}](${songs[i].uploader.url})`,
       });
     }
+
+    return embed;
+  },
+
+  QueueEmpty: () => {
+    const embed = new EmbedBuilder()
+      .setTitle(`${Emoji.playlist} - ǫᴜᴇᴜᴇ ᴇᴍᴘᴛʏ`)
+      .setDescription("ᴛʜᴇʀᴇ ɪs ɴᴏᴛʜɪɴɢ ɪɴ ᴛʜᴇ ᴏᴜᴇᴜᴇ")
+      .setColor(Color.ERROR.DARK)
+      .setTimestamp();
+
+    return embed;
+  },
+
+  /**
+   *
+   * @param {Queue} queue
+   * @returns
+   */
+  QueueAutoplay: (queue) => {
+    const embed = new EmbedBuilder()
+      .setTitle(`${Emoji.playlist} - ᴀᴜᴛᴏᴘʟᴀʏ`)
+      .setDescription(
+        `**ɴᴏᴡ ᴘʟᴀʏɪɴɢ**: [${queue.songs[0].name}](${queue.songs[0].url})`
+      )
+      .addFields([
+        {
+          name: "ᴀᴜᴛᴏᴘʟᴀʏ ɪɴғᴏʀᴍᴀᴛɪᴏɴ:",
+          value: `sᴏɴɢ ᴅᴜʀᴀᴛɪᴏɴ: [${queue.formattedCurrentTime}/${queue.songs[0].formattedDuration}]\nɪɴ: [${queue.voiceChannel.name}](${queue.voiceChannel.url})\n———`,
+        },
+      ])
+      .setThumbnail(queue.songs[0].thumbnail)
+      .setColor(Color.INFO.DARK)
+      .setTimestamp();
 
     return embed;
   },

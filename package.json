@@ -11,7 +11,9 @@
     "url": "git+https://gitlab.com/quangpao/wuneng-bot.git"
   },
   "author": "quangpao",
-  "contributors": ["qb"],
+  "contributors": [
+    "qb"
+  ],
   "license": "ISC",
   "bugs": {
     "url": "https://gitlab.com/quangpao/wuneng-bot/issues"
@@ -29,7 +31,6 @@
     "discord.js": "^14.7.1",
     "distube": "^4.0.4",
     "dotenv": "^16.0.3",
-    "ffmpeg-static": "^4.4.1",
     "prettier": "^2.8.4",
     "sodium": "^3.0.2"
   },

@@ -1,16 +1,11 @@
-/* eslint-disable no-magic-numbers */
-const {
-  ChatInputCommandInteraction,
-  PermissionFlagsBits,
-  TextChannel,
-} = require("discord.js");
+const { ChatInputCommandInteraction } = require("discord.js");
 const { DisTube } = require("distube");
-const {
-  InsufficientPermissionEmbedBuilder,
-} = require("../../../../common/builders/General");
-const Permission = require("../../../../common/messages/permissions");
 const ActionRowBuilder = require("../../builders/action-row.builder");
-const { Queue } = require("../../builders/embeds/queue.embed");
+const {
+  Queue,
+  QueueEmpty,
+  QueueAutoplay,
+} = require("../../builders/embeds/queue.embed");
 const queueBuilder = require("../../builders/queue.builder");
 
 module.exports = {
@@ -23,7 +18,10 @@ module.exports = {
    */
   execute: async (interaction, { distube }) => {
     const queue = distube.getQueue(interaction.guildId);
-    if (queue === undefined) return await interaction.reply(); // return if queue is empty
+    if (queue === undefined)
+      return await interaction.reply({ embeds: [QueueEmpty()] });
+    if (queue.autoplay)
+      return await interaction.reply({ embeds: [QueueAutoplay(queue)] });
     const queueLength = queue.songs.length;
     const currentPage = 1;
     const maxPage = Math.ceil((queueLength - 1) / 5);
