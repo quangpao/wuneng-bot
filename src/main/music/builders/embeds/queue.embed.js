@@ -1,0 +1,40 @@
+const { EmbedBuilder } = require("discord.js");
+const { Queue } = require("distube");
+const Color = require("../../../../common/utils/Color");
+const Emoji = require("../../../../common/utils/Emoji");
+
+module.exports = {
+  /**
+   * @param {Queue} queue
+   * @param {Number} page
+   * @param {Number} maxPage
+   */
+  Queue: (queue, page, maxPage) => {
+    const songs = queue.songs;
+    const embed = new EmbedBuilder()
+      .setTitle(`${Emoji.playlist} - ǫᴜᴇᴜᴇ`)
+      .setDescription(`**ɴᴏᴡ ᴘʟᴀʏɪɴɢ**: [${songs[0].name}](${songs[0].url})`)
+      .addFields({
+        name: "ǫᴜᴇᴜᴇ ɪɴғᴏʀᴍᴀᴛɪᴏɴ:",
+        value: `sᴏɴɢs: ${songs.length}\nᴅᴜʀᴀᴛɪᴏɴ: [${queue.formattedCurrentTime}/${queue.formattedDuration}]\nɪɴ: \`${queue.voiceChannel.name}\`\n———`,
+      })
+      .setThumbnail(songs[0].thumbnail)
+      .setColor(Color.INFO.DARK)
+      .setFooter({
+        text: `Page ${page}/${maxPage}`,
+      })
+      .setTimestamp();
+    const startIndex = (page - 1) * 5 + 1;
+    const endIndex =
+      startIndex + 5 > songs.length ? songs.length : startIndex + 5;
+
+    for (let i = startIndex; i < endIndex; i++) {
+      embed.addFields({
+        name: `#${i + 1} ${songs[i].name}`,
+        value: `ᴜᴘʟᴏᴀᴅᴇʀ: [${songs[i].uploader.name}](${songs[i].uploader.url})`,
+      });
+    }
+
+    return embed;
+  },
+};

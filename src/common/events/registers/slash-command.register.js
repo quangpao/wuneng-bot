@@ -1,5 +1,5 @@
 const WNClient = require("../../classes/WNClient");
-const { readdirSync } = require("fs");
+const { readdirSync, existsSync } = require("fs");
 
 /**
  * @param {WNClient} client
@@ -10,11 +10,11 @@ module.exports = (client) => {
     .map((dir) => dir.name);
 
   for (const folder of projectFolders) {
-    let commandsFiles = readdirSync(
+    if (!existsSync(`./src/main/${folder}/commands/slash_commands`)) continue;
+
+    const commandsFiles = readdirSync(
       `./src/main/${folder}/commands/slash_commands`
-    );
-    if (!commandsFiles) continue;
-    commandsFiles = commandsFiles.filter((file) => file.endsWith(".js"));
+    ).filter((file) => file.endsWith(".js"));
 
     const { slashCommands, slashCommandArray } = client;
     for (const file of commandsFiles) {

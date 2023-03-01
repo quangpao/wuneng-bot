@@ -62,7 +62,7 @@ module.exports = {
       .setTitle(`${Emoji.playlist} - ᴘʟᴀʏʟɪsᴛ ᴀᴅᴅᴇᴅ`)
       .addFields({
         name: `ᴘʟᴀʏʟɪsᴛ ɪɴғᴏʀᴍᴀᴛɪᴏɴ`,
-        value: `${bold("ɴᴀᴍᴇ")}: [${playlist.name}](${playlist.url})\n`
+        value: `${bold("ɴᴀᴍᴇ")}: [${playlist.name}](${playlist.url})\n${bold("ᴘʟᴀʏʟɪsᴛ ʟᴇɴɢᴛʜ")}: ${playlist.songs.length}\n———`
       })
       .setImage(playlist.thumbnail)
       .setThumbnail(
