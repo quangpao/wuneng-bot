@@ -3,7 +3,7 @@ const { SpotifyPlugin } = require("@distube/spotify");
 const { YtDlpPlugin } = require("@distube/yt-dlp");
 const { Client, GatewayIntentBits, Collection } = require("discord.js");
 const { DisTube } = require("distube");
-const config = require("../config");
+const Config = require("../config");
 const interactionHandler = require("../handlers/interaction.handler");
 const _64GiB = 67108864;
 
@@ -32,7 +32,7 @@ class WNClient extends Client {
       leaveOnEmpty: false,
       leaveOnFinish: false,
       leaveOnStop: false,
-      youtubeCookie: config.youtubeCookie,
+      youtubeCookie: Config.youtubeCookie,
       ytdlOptions: {
         filter: "audioonly",
         quality: "highestaudio",
@@ -44,9 +44,9 @@ class WNClient extends Client {
           parallel: true,
           emitEventsAfterFetching: false,
           api: {
-            clientId: config.spotifyCfg.clientId,
-            clientSecret: config.spotifyCfg.clientSecret,
-            topTracksCountry: config.spotifyCfg.topTracksCountry,
+            clientId: Config.spotifyCfg.clientId,
+            clientSecret: Config.spotifyCfg.clientSecret,
+            topTracksCountry: Config.spotifyCfg.topTracksCountry,
           },
         }),
         new YtDlpPlugin({
