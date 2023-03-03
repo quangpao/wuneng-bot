@@ -4,6 +4,10 @@ const {
   NotInVoiceChannelEmbedBuilder,
 } = require("../../../../common/builders/General");
 const { slashBuilder } = require("../../builders/autoplay.builder");
+const {
+  AutoplayOn,
+  AutoplayOff,
+} = require("../../builders/embeds/autoplay.embed");
 const { QueueEmpty } = require("../../builders/embeds/queue.embed");
 const { joinSpeakerCheck } = require("../../utils/permission.check");
 
@@ -31,10 +35,10 @@ module.exports = {
     const toggle = interaction.options.getString("toggle");
     if (toggle === "on") {
       distube.toggleAutoplay(interaction.guildId, true);
-      await interaction.reply("Autoplay is now on"); // TODO: Embed
+      await interaction.reply({ embeds: [AutoplayOn(queue)] });
     } else if (toggle === "off") {
       distube.toggleAutoplay(interaction.guildId, false);
-      await interaction.reply("Autoplay is now off"); // TODO: Embed
+      await interaction.reply({ embeds: [AutoplayOff(queue)] });
     }
   },
 };

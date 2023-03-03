@@ -1,4 +1,4 @@
-const { EmbedBuilder, GuildMember, bold } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 const { Song, Playlist } = require("distube");
 const Color = require("../../../../common/utils/Color");
 const Emoji = require("../../../../common/utils/Emoji");
@@ -7,7 +7,6 @@ module.exports = {
   /**
    *
    * @param {Song} song
-   * @param {GuildMember} member
    * @returns
    */
   PlaySong: (song) => {
@@ -38,10 +37,10 @@ module.exports = {
       .setTitle(`${Emoji.songAdd} - sᴏɴɢ ᴀᴅᴅᴇᴅ`)
       .addFields({
         name: `sᴏɴɢ ɪɴғᴏʀᴍᴀᴛɪᴏɴ`,
-        value: `${bold("ɴᴀᴍᴇ")}: [${song.name}](${song.url})
-        \n${bold("ᴀʀᴛɪꜱᴛ")}: [${song.uploader.name}](${song.uploader.url})
-        \n${bold("ᴠɪᴇᴡ")}: ${song.views}
-        \n${bold("ᴅᴜʀᴀᴛɪᴏɴ")}: ${song.formattedDuration}`,
+        value: `**ɴᴀᴍᴇ**: [${song.name}](${song.url})
+        \n**ᴀʀᴛɪꜱᴛ**: [${song.uploader.name}](${song.uploader.url})
+        \n**ᴠɪᴇᴡ**: ${song.views}
+        \n**ᴅᴜʀᴀᴛɪᴏɴ**: ${song.formattedDuration}`,
         inline: true,
       })
       .setImage(song.thumbnail)
@@ -70,9 +69,7 @@ module.exports = {
       .setTitle(`${Emoji.playlist} - ᴘʟᴀʏʟɪsᴛ ᴀᴅᴅᴇᴅ`)
       .addFields({
         name: `ᴘʟᴀʏʟɪsᴛ ɪɴғᴏʀᴍᴀᴛɪᴏɴ`,
-        value: `${bold("ɴᴀᴍᴇ")}: [${playlist.name}](${playlist.url})\n${bold(
-          "ᴘʟᴀʏʟɪsᴛ ʟᴇɴɢᴛʜ"
-        )}: ${playlist.songs.length}\n———`,
+        value: `**ɴᴀᴍᴇ**: [${playlist.name}](${playlist.url})\n**ᴘʟᴀʏʟɪsᴛ ʟᴇɴɢᴛʜ**: ${playlist.songs.length}\n———`,
       })
       .setImage(playlist.thumbnail)
       .setThumbnail(
@@ -93,7 +90,7 @@ module.exports = {
     if (playlist.songs.length < limit) limit = playlist.songs.length;
     for (let x = 1; x <= limit; x++) {
       embed.addFields({
-        name: `sᴏɴɢ #${eval(`Emoji.a${x}`)}`,
+        name: `sᴏɴɢ ${eval(`Emoji.a${x}`)}`,
         // eslint-disable-next-line no-magic-numbers
         value: `[${playlist.songs[x - 1].name}](${playlist.songs[x - 1].url})`,
       });

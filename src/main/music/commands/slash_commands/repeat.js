@@ -4,6 +4,7 @@ const {
   NotInVoiceChannelEmbedBuilder,
 } = require("../../../../common/builders/General");
 const { QueueEmpty } = require("../../builders/embeds/queue.embed");
+const { AlrAutoplay } = require("../../builders/embeds/repeat.embed");
 const { slashBuilder } = require("../../builders/repeat.builder");
 const { joinSpeakerCheck } = require("../../utils/permission.check");
 
@@ -28,7 +29,8 @@ module.exports = {
     if (queue === undefined)
       return await interaction.reply({ embeds: [QueueEmpty()] });
 
-    if (queue.autoplay) return await interaction.reply(); // Repeat command can't run parallel with autoplay
+    if (queue.autoplay)
+      return await interaction.reply({ embeds: [AlrAutoplay()] });
 
     const toggle = interaction.options.getString("toggle");
 
