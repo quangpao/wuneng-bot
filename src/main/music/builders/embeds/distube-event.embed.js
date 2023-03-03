@@ -91,7 +91,6 @@ module.exports = {
     for (let x = 1; x <= limit; x++) {
       embed.addFields({
         name: `sᴏɴɢ ${eval(`Emoji.a${x}`)}`,
-        // eslint-disable-next-line no-magic-numbers
         value: `[${playlist.songs[x - 1].name}](${playlist.songs[x - 1].url})`,
       });
     }
