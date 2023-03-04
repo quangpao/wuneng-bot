@@ -2,6 +2,7 @@ const { EmbedBuilder } = require("discord.js");
 const { Queue } = require("distube");
 const Color = require("../../../../common/utils/Color");
 const Emoji = require("../../../../common/utils/Emoji");
+const { AutoplayOn } = require("./autoplay.embed");
 
 module.exports = {
   /**
@@ -21,7 +22,7 @@ module.exports = {
       .setThumbnail(songs[0].thumbnail)
       .setColor(Color.INFO.DARK)
       .setFooter({
-        text: `Page ${page}/${maxPage}`,
+        text: `Page ${page}/${maxPage > 0 ? maxPage : 1}`,
       })
       .setTimestamp();
     const startIndex = (page - 1) * 5 + 1;
@@ -54,21 +55,6 @@ module.exports = {
    * @returns
    */
   QueueAutoplay: (queue) => {
-    const embed = new EmbedBuilder()
-      .setTitle(`${Emoji.playlist} - ᴀᴜᴛᴏᴘʟᴀʏ`)
-      .setDescription(
-        `**ɴᴏᴡ ᴘʟᴀʏɪɴɢ**: [${queue.songs[0].name}](${queue.songs[0].url})`
-      )
-      .addFields([
-        {
-          name: "ᴀᴜᴛᴏᴘʟᴀʏ ɪɴғᴏʀᴍᴀᴛɪᴏɴ:",
-          value: `sᴏɴɢ ᴅᴜʀᴀᴛɪᴏɴ: [${queue.formattedCurrentTime}/${queue.songs[0].formattedDuration}]\nɪɴ: [${queue.voiceChannel.name}](${queue.voiceChannel.url})\n———`,
-        },
-      ])
-      .setThumbnail(queue.songs[0].thumbnail)
-      .setColor(Color.INFO.DARK)
-      .setTimestamp();
-
-    return embed;
+    return AutoplayOn(queue);
   },
 };

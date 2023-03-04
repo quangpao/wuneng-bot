@@ -14,7 +14,7 @@ module.exports = {
     const builder = new ButtonBuilder()
       .setStyle("Primary")
       .setEmoji(Emoji.rightId)
-      .setLabel(`ᴘᴀɢᴇ ${nextPage}`)
+      .setLabel(`ᴘᴀɢᴇ ${nextPage > 0 ? maxPage : 1}`)
       .setDisabled(page >= maxPage);
     if (page === -1) {
       builder.setCustomId(`nextpage`);
