@@ -1,4 +1,4 @@
-const string = "The bot need".toUpperCase();
+const string = "The loop mode has been disabled.\nUsing `/queue` to tracking your queue".toUpperCase();
 
 const mask = "ᴀʙᴄᴅᴇғɢʜɪᴊᴋʟᴍɴᴏᴘQʀsᴛᴜᴠᴡxʏᴢ";
 const qChar = "ǫ";
