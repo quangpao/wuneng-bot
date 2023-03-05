@@ -17,7 +17,7 @@ module.exports = {
       .setDescription(`**ɴᴏᴡ ᴘʟᴀʏɪɴɢ**: [${songs[0].name}](${songs[0].url})`)
       .addFields({
         name: "ǫᴜᴇᴜᴇ ɪɴғᴏʀᴍᴀᴛɪᴏɴ:",
-        value: `sᴏɴɢs: ${songs.length}\nᴅᴜʀᴀᴛɪᴏɴ: [${queue.formattedCurrentTime}/${queue.formattedDuration}]\nɪɴ: [${queue.voiceChannel.name}](${queue.voiceChannel.url})\n———`,
+        value: `sᴏɴɢs: ${songs.length}\nᴅᴜʀᴀᴛɪᴏɴ: [${queue.formattedCurrentTime}/${queue.formattedDuration}]\nɪɴ: \`[${queue.voiceChannel.name}](${queue.voiceChannel.url})\`\n———`,
       })
       .setThumbnail(songs[0].thumbnail)
       .setColor(Color.INFO.DARK)
