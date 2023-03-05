@@ -18,7 +18,7 @@ module.exports = {
       .addFields([
         {
           name: "ᴀᴜᴛᴏᴘʟᴀʏ ɪɴғᴏʀᴍᴀᴛɪᴏɴ:",
-          value: `sᴏɴɢ ᴅᴜʀᴀᴛɪᴏɴ: [${queue.formattedCurrentTime}/${queue.songs[0].formattedDuration}]\nɪɴ: [${queue.voiceChannel.name}](${queue.voiceChannel.url})\n———`,
+          value: `sᴏɴɢ ᴅᴜʀᴀᴛɪᴏɴ: [${queue.formattedCurrentTime}/${queue.songs[0].formattedDuration}]\nɪɴ: \`[${queue.voiceChannel.name}](${queue.voiceChannel.url})\`\n———`,
         },
         {
           name: "ɴᴇxᴛ sᴏɴɢ ɪɴғᴏʀᴍᴀᴛɪᴏɴ:",
