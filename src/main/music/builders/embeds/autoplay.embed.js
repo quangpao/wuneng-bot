@@ -50,4 +50,14 @@ module.exports = {
 
     return embed;
   },
+
+  NotYoutube: () => {
+    const embed = new EmbedBuilder()
+      .setTitle(`${Emoji.pause} - ᴛʜɪs ғᴇᴀᴛᴜʀᴇ ɪs ɴᴏᴛ ᴀᴠᴀɪʟᴀʙʟᴇ`)
+      .setDescription(`ᴛʜɪs ғᴇᴀᴛᴜʀᴇ ɪs ᴏɴʟʏ ᴀᴠᴀɪʟᴀʙʟᴇ ғᴏʀ ʏᴏᴜᴛᴜʙᴇ ᴠɪᴅᴇᴏs.`)
+      .setColor(Color.ERROR.DARK)
+      .setTimestamp();
+
+    return embed;
+  },
 };

@@ -4,10 +4,7 @@ const {
   NotInVoiceChannelEmbedBuilder,
 } = require("../../../../common/builders/General");
 const { slashBuilder } = require("../../builders/autoplay.builder");
-const {
-  AutoplayOn,
-  AutoplayOff,
-} = require("../../builders/embeds/autoplay.embed");
+const Autoplay = require("../../builders/embeds/autoplay.embed");
 const { QueueEmpty } = require("../../builders/embeds/queue.embed");
 const { joinSpeakerCheck } = require("../../utils/permission.check");
 
@@ -29,16 +26,27 @@ module.exports = {
     if (!joinSpeakerCheck(interaction, channel)) return;
 
     const queue = distube.getQueue(interaction.guildId);
-    if (queue === undefined)
-      return await interaction.reply({ embeds: [QueueEmpty()] });
+    checkQueue(interaction, queue);
 
-    const toggle = interaction.options.getString("toggle");
-    if (toggle === "on") {
-      distube.toggleAutoplay(interaction.guildId, true);
-      await interaction.reply({ embeds: [AutoplayOn(queue)] });
-    } else if (toggle === "off") {
-      distube.toggleAutoplay(interaction.guildId, false);
-      await interaction.reply({ embeds: [AutoplayOff(queue)] });
-    }
+    toggleAutoplay(
+      distube.toggleAutoplay(interaction.guildId),
+      interaction,
+      queue
+    );
   },
 };
+
+async function checkQueue(interaction, queue) {
+  if (queue === undefined)
+    return await interaction.reply({ embeds: [QueueEmpty()] });
+  if (queue.songs[0].source !== "youtube")
+    return await interaction.reply({ embeds: [Autoplay.NotYoutube()] });
+}
+
+async function toggleAutoplay(autoplay, interaction, queue) {
+  if (autoplay) {
+    await interaction.reply({ embeds: [Autoplay.AutoplayOn(queue)] });
+  } else {
+    await interaction.reply({ embeds: [Autoplay.AutoplayOff(queue)] });
+  }
+}

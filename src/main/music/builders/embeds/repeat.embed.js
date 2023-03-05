@@ -2,6 +2,7 @@ const { EmbedBuilder, GuildMember } = require("discord.js");
 const { Song, Queue } = require("distube");
 const Color = require("../../../../common/utils/Color");
 const Emoji = require("../../../../common/utils/Emoji");
+const { formatNumber } = require("../../utils/string.utils");
 
 module.exports = {
   AlrAutoplay: () => {
@@ -33,7 +34,7 @@ module.exports = {
         name: `sᴏɴɢ ɪɴғᴏʀᴍᴀᴛɪᴏɴ`,
         value: `**ɴᴀᴍᴇ**: [${song.name}](${song.url})
         \n**ᴀʀᴛɪꜱᴛ**: [${song.uploader.name}](${song.uploader.url})
-        \n**ᴠɪᴇᴡ**: ${song.views}
+        \n**ᴠɪᴇᴡ**: ${formatNumber(song.views)}
         \n**ᴅᴜʀᴀᴛɪᴏɴ**: ${song.formattedDuration}`,
         inline: true,
       })
