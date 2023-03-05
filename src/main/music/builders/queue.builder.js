@@ -19,7 +19,7 @@ module.exports = {
     if (page === -1) {
       builder.setCustomId(`nextpage`);
     } else {
-      builder.setCustomId(`nextpage_${page}`);
+      builder.setCustomId(`nextpage ${page}`);
     }
     return builder;
   },
@@ -33,7 +33,7 @@ module.exports = {
     if (page === -1) {
       builder.setCustomId(`previouspage`);
     } else {
-      builder.setCustomId(`previouspage_${page}`);
+      builder.setCustomId(`previouspage ${page}`);
     }
     return builder;
   },

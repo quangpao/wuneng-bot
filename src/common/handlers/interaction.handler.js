@@ -26,7 +26,7 @@ const slashCommandHandler = async (interaction, client) => {
  * @param {WNClient} client
  */
 const buttonHandler = async (interaction, client) => {
-  const [ customId, extraData ] = interaction.customId.split("_");
+  const [ customId, extraData ] = interaction.customId.split(" ");
   const command = client.buttonCommands.get(customId);
   if (!command) return;
   if (extraData) interaction.extraData = extraData;
@@ -48,6 +48,6 @@ const interactionHandler = async (interaction, client) => {
   } else if (interaction.isChatInputCommand()) {
     slashCommandHandler(interaction, client);
   }
-}
+};
 
 module.exports = interactionHandler;
