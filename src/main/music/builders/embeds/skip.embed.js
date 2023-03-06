@@ -6,11 +6,11 @@ const Emoji = require("../../../../common/utils/Emoji");
 module.exports = {
   NoSkip: () => {
     const embed = new EmbedBuilder()
-      .setTitle(`${Emoji.pause} - ᴛʜᴇʀᴇ ɪs ɴᴏ sᴏɴɢ ᴛᴏ sᴋɪᴘ`)
+      .setTitle(`${Emoji.stop} - sᴋɪᴘᴘɪɴɢ sᴏɴɢ`)
       .addFields([
         {
           name: "———",
-          value: `ᴛʜᴇʀᴇ ɪs ɴᴏ sᴏɴɢ ᴛᴏ sᴋɪᴘ.\n———`,
+          value: `ᴛʜᴇʀᴇ ɪs ɴᴏ sᴏɴɢ ʟᴇғᴛ ᴛᴏ sᴋɪᴘ.\n———`,
         },
       ])
       .setColor(Color.ERROR.MAIN)

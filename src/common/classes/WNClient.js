@@ -25,6 +25,7 @@ class WNClient extends Client {
     });
     this.slashCommands = new Collection();
     this.buttonCommands = new Collection();
+    this.selectmenuCommands = new Collection();
     this.slashCommandArray = [];
     this.distube = new DisTube(this, {
       searchSongs: 5,
@@ -61,6 +62,7 @@ class WNClient extends Client {
       "slash-command.register",
       "events.register.js",
       "button-command.register",
+      "selectmenu-command.register",
     ].forEach((register) => {
       require(`../events/registers/${register}`)(this);
     });
