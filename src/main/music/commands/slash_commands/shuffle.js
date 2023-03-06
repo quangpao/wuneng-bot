@@ -1,30 +1,26 @@
 const { ChatInputCommandInteraction } = require("discord.js");
 const { DisTube } = require("distube");
 const { QueueEmpty } = require("../../builders/embeds/queue.embed");
-const { SkipSong, NoSkip } = require("../../builders/embeds/skip.embed");
-const { slashBuilder } = require("../../builders/skip.builder");
+const { ShuffeItSelf } = require("../../builders/embeds/shuffle.embed");
+const { slashBuilder } = require("../../builders/shuffle.builder");
 
 module.exports = {
   data: slashBuilder(),
 
   /**
+   *
    * @param {ChatInputCommandInteraction} interaction
-   * @param {{distube : DisTube}}
-   * @returns {Promise<void>}
+   * @param {{distube: DisTube}}
    */
   execute: async (interaction, { distube }) => {
     const queue = distube.getQueue(interaction.guildId);
     if (queue === undefined)
       return await interaction.reply({ embeds: [QueueEmpty()] });
     if (queue.songs.length === 1)
-      return await interaction.reply({
-        embeds: [NoSkip()],
-      });
+      return await interaction.reply({ embeds: [ShuffeItSelf()] });
 
-    await distube.skip(interaction.guildId).then((song) => {
-      interaction.reply({
-        embeds: [SkipSong(song)],
-      });
+    await distube.shuffle(interaction.guildId).then((queue) => {
+      interaction.reply("Queue shuffled");
     });
   },
 };

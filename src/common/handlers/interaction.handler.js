@@ -39,6 +39,23 @@ const buttonHandler = async (interaction, client) => {
 };
 
 /**
+ * @param {import("discord.js").AnySelectMenuInteraction} interaction
+ * @param {WNClient} client
+ */
+const selectmenuHandler = async (interaction, client) => {
+  const [ customId, extraData ] = interaction.customId.split(" ");
+  const command = client.selectmenuCommands.get(customId);
+  if (!command) return;
+  if (extraData) interaction.extraData = extraData;
+
+  try {
+    await command.execute(interaction, client);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+/**
  * @param {Interaction} interaction
  * @param {WNClient} client
  */
@@ -47,6 +64,8 @@ const interactionHandler = async (interaction, client) => {
     buttonHandler(interaction, client);
   } else if (interaction.isChatInputCommand()) {
     slashCommandHandler(interaction, client);
+  } else if (interaction.isAnySelectMenu()) {
+    selectmenuHandler(interaction, client);
   }
 };
 
