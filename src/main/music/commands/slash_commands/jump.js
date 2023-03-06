@@ -41,8 +41,8 @@ module.exports = {
           embeds: [SelectJump()],
           components: row,
         });
-        if (queue.songs[0].duration > 10) {
-          await delay(10000);
+        if (queue.songs[0].duration > 25) {
+          await delay(25000);
         } else {
           await delay(queue.songs[0].duration * 1000);
         }

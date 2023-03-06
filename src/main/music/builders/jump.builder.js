@@ -17,7 +17,7 @@ module.exports = {
     const builder = new StringSelectMenuBuilder()
       .setCustomId("previousjump")
       .setPlaceholder("Select Previous Song");
-    for (let i = 0; i < previousSongs.length; i++) {
+    for (let i = 0; i < previousSongs.length && i < 25; i++) {
       builder.addOptions({
         label: `${previousSongs[i].name}`,
         description: `Song position: ${i - previousSongs.length}`,
@@ -35,7 +35,8 @@ module.exports = {
     const builder = new StringSelectMenuBuilder()
       .setCustomId("nextjump")
       .setPlaceholder("Select Next Song");
-    for (let i = 1; i < nextSongs.length; i++) {
+    for (let i = 1; i < nextSongs.length && i < 26; i++) {
+      console.log(i, nextSongs[i])
       builder.addOptions({
         label: `${nextSongs[i].name}`,
         description: `Song position: ${i}`,
