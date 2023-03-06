@@ -39,6 +39,7 @@ class WNClient extends Client {
         quality: "highestaudio",
         highWaterMark: _64GiB,
       },
+      emitNewSongOnly: true,
       plugins: [
         new SoundCloudPlugin(),
         new SpotifyPlugin({
