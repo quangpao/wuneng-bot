@@ -1,9 +1,12 @@
-const { ChatInputCommandInteraction, Client } = require("discord.js");
+const {
+  ChatInputCommandInteraction,
+  TextChannel,
+  ComponentType,
+} = require("discord.js");
 const { DisTube } = require("distube");
 const {
   NotInVoiceChannelEmbedBuilder,
 } = require("../../../../common/builders/General");
-const { delay } = require("../../../../common/utils/Utilities");
 const { jumpRowBuilder } = require("../../builders/action-row.builder");
 const {
   NoSongJump,
@@ -28,27 +31,33 @@ module.exports = {
       return await interaction.reply({
         embeds: [NotInVoiceChannelEmbedBuilder()],
       });
+
     const queue = distube.getQueue(interaction.guildId);
     if (queue === undefined)
       return await interaction.reply({ embeds: [QueueEmpty()] });
-    if (queue.songs.length === 1)
+    if (queue.songs.length === 1 && queue.previousSongs.length === 0)
       return await interaction.reply({ embeds: [NoSongJump()] });
 
-    console.log(queue.songs[0]);
-    await jumpRowBuilder(queue)
+    const /** @type TextChannel */ textChannel = interaction.channel;
+    const collector = textChannel.createMessageComponentCollector({
+      time: 60000,
+      componentType: ComponentType.StringSelect,
+    });
+
+    collector.on("end", (collected) => {
+      if (collected.size === 0) {
+        interaction.editReply({
+          embeds: [SelectJumpTimedOut()],
+          components: [],
+        });
+      }
+    });
+
+    await jumpRowBuilder(queue.previousSongs, queue.songs)
       .then(async (row) => {
         interaction.reply({
           embeds: [SelectJump()],
           components: row,
-        });
-        if (queue.songs[0].duration > 25) {
-          await delay(25000);
-        } else {
-          await delay(queue.songs[0].duration * 1000);
-        }
-        interaction.editReply({
-          embeds: [SelectJumpTimedOut()],
-          components: [],
         });
       })
       .catch((error) => {

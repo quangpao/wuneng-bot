@@ -36,7 +36,6 @@ module.exports = {
       .setCustomId("nextjump")
       .setPlaceholder("Select Next Song");
     for (let i = 1; i < nextSongs.length && i < 26; i++) {
-      console.log(i, nextSongs[i])
       builder.addOptions({
         label: `${nextSongs[i].name}`,
         description: `Song position: ${i}`,

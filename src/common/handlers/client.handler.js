@@ -11,12 +11,12 @@ const { TOKENID, CLIENTID } = process.env;
  * @param {WNClient} client
  */
 module.exports = (client) => {
-  client.on("ready", (client) => {
+  client.on("ready", async (client) => {
     const guildIds = client.guilds.cache.map((guild) => guild.id);
     const rest = new REST({ version: "10" }).setToken(TOKENID);
 
     for (const guildId of guildIds) {
-      rest
+      await rest
         .put(Routes.applicationCommands(CLIENTID, guildId), {
           body: client.slashCommandArray,
         })
@@ -27,13 +27,13 @@ module.exports = (client) => {
     console.log(`Logged in as ${client.user.tag}!`);
   });
 
-  client.on("guildCreate", (guild) => {
+  client.on("guildCreate", async (guild) => {
     console.log(
       `Joined a new guild: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`
     );
     const rest = new REST({ version: "10" }).setToken(TOKENID);
 
-    rest
+    await rest
       .put(Routes.applicationCommands(CLIENTID, guild.id), {
         body: client.slashCommandArray,
       })

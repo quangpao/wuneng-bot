@@ -1,7 +1,7 @@
 const { ActionRowBuilder } = require("discord.js");
 const QueueBuilder = require("./queue.builder");
 const JumpBuilder = require("./jump.builder");
-const { Queue } = require("distube");
+const { Song } = require("distube");
 
 module.exports = {
   queueRowBuilder: async (page, maxPage) => {
@@ -12,23 +12,24 @@ module.exports = {
   },
 
   /**
-   * @param {Queue} queue
-   * @returns {ActionRowBuilder[]}
+   * @param {Song[]} previousSongs
+   * @param {Song[]} nextSongs
+   * @returns {Promise<ActionRowBuilder[]>}
    */
-  jumpRowBuilder: async (queue) => {
+  jumpRowBuilder: async (previousSongs, nextSongs) => {
     const row = [];
 
-    if (queue.previousSongs.length > 0) {
+    if (previousSongs.length > 0) {
       row.push(
         new ActionRowBuilder().addComponents(
-          JumpBuilder.previousJumpMenuBuilder(queue.previousSongs)
+          JumpBuilder.previousJumpMenuBuilder(previousSongs)
         )
       );
     }
-    if (queue.songs.length > 1) {
+    if (nextSongs.length > 1) {
       row.push(
         new ActionRowBuilder().addComponents(
-          JumpBuilder.nextJumpMenuBuilder(queue.songs)
+          JumpBuilder.nextJumpMenuBuilder(nextSongs)
         )
       );
     }

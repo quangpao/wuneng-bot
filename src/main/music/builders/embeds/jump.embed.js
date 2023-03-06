@@ -54,7 +54,6 @@ module.exports = {
    * @returns
    */
   JumpedSong: (song) => {
-    console.log(song);
     const embed = new EmbedBuilder()
       .setTitle(`${Emoji.songAdd} - ᴊᴜᴍᴘᴇᴅ ᴛᴏ ᴛʜᴇ sᴏɴɢ`)
       .addFields({
