@@ -1,7 +1,8 @@
 const { ActionRowBuilder } = require("discord.js");
 const QueueBuilder = require("./queue.builder");
 const JumpBuilder = require("./jump.builder");
-const { Song } = require("distube");
+const VolumeBuilder = require("./volume.builder");
+const { Song, Queue } = require("distube");
 
 module.exports = {
   queueRowBuilder: async (page, maxPage) => {
@@ -33,6 +34,17 @@ module.exports = {
         )
       );
     }
+    return row;
+  },
+
+  /**
+   *
+   * @param {Queue} queue
+   */
+  volumeRowBuilder: async (queue) => {
+    const row = new ActionRowBuilder()
+      .addComponents(VolumeBuilder.decreaseVolumeBuilder(queue.volume - 5))
+      .addComponents(VolumeBuilder.increaseVolumeBuilder(queue.volume + 5));
     return row;
   },
 };
