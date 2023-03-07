@@ -1,3 +1,4 @@
+const { RepeatMode } = require("distube");
 const WNClient = require("../../../common/classes/WNClient");
 const PlayBuilder = require("../builders/embeds/distube-event.embed");
 
@@ -23,6 +24,12 @@ module.exports = (client) => {
     queue.textChannel.send({
       embeds: [PlayBuilder.AddSong(song)],
     });
+  });
+
+  client.distube.on("initQueue", (queue) => {
+    queue.repeatMode = RepeatMode.DISABLED;
+    queue.autoplay = false;
+    queue.volume = 100;
   });
 
   client.distube.on("noRelated", (queue) => {
@@ -52,11 +59,6 @@ module.exports = (client) => {
 
   client.distube.on("error", (channel, error) => {
     console.log(channel, error)
-    // TODO
-  })
-
-  client.distube.on("initQueue", (queue) => {
-    console.log(queue)
     // TODO
   })
 
