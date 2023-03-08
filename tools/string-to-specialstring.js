@@ -1,4 +1,4 @@
-const string = "The loop mode has been disabled.\nUsing `/queue` to tracking your queue".toUpperCase();
+const string = "PAUSE RESUME".toUpperCase();
 
 const mask = "ᴀʙᴄᴅᴇғɢʜɪᴊᴋʟᴍɴᴏᴘQʀsᴛᴜᴠᴡxʏᴢ";
 const qChar = "ǫ";

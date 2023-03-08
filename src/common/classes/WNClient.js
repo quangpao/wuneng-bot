@@ -32,7 +32,7 @@ class WNClient extends Client {
       searchCooldown: 30,
       leaveOnEmpty: false,
       leaveOnFinish: false,
-      leaveOnStop: false,
+      leaveOnStop: true,
       youtubeCookie: Config.youtubeCookie,
       ytdlOptions: {
         filter: "audioonly",
