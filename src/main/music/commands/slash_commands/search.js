@@ -16,12 +16,14 @@ module.exports = {
    * @param {{distube: DisTube}}
    */
   execute: async (interaction, { distube }) => {
-    const name = interaction.options.getString("song");
-    const songArr = await distube.search(name);
+    let name = interaction.options.getString("song");
+    if(name.length > 100)
+      name = name.substring(0, 99)
+    const songs = await distube.search(name);
     // await interaction.reply({embeds:[SearchEmbedBuilder(songArr, interaction)]})
-    actionRowBuilder.searchRowBuilder(songArr).then(async (row) => {
+    actionRowBuilder.searchRowBuilder(songs).then(async (row) => {
       await interaction.reply({
-        embeds: [SearchEmbedBuilder(songArr, interaction)],
+        embeds: [SearchEmbedBuilder(songs, interaction)],
         components: [row],
       });
     });

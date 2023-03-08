@@ -6,11 +6,11 @@ const { formatNumber } = require("../../utils/string.utils");
 module.exports = {
   /**
    *
-   * @param {SearchResult} songArr
+   * @param {SearchResult} songs
    * @param {ChatInputCommandInteraction} interaction
    * @returns
    */
-  SearchEmbedBuilder: (songArr, interaction) => {
+  SearchEmbedBuilder: (songs, interaction) => {
     const embed = new EmbedBuilder()
       .setTitle(`${Emoji.search} ʜᴇʏ ʟᴏᴏᴋ ᴡʜᴀᴛ ɪ ғᴏᴜɴᴅ ʜᴇʀᴇ!\nᴘʀᴇss ʙᴜᴛᴛᴏɴ ᴛᴏ sᴇʟᴇᴄᴛ sᴏɴɢ`)
       .setThumbnail(
@@ -23,13 +23,10 @@ module.exports = {
       })
       .setTimestamp();
     for (let i = 0; i < 5; i++) {
-      let songname = songArr[i].name
-      if (songname.length >= 50){
-        songname = songname.substr(0, 40) + '...'
-      }
+      const song = songs[i]
       embed.addFields({
         name: `ㅤ`,
-        value: `**${i + 1}:**[${songname}](${songArr[i].url})(${songArr[i].formattedDuration})\n**ᴀʀᴛɪꜱᴛ:** ${songArr[i].uploader.name}\n**ᴠɪᴇᴡ:** ${formatNumber(songArr[i].views)}`,
+        value: `**${i + 1}:**[${song.name}](${song.url})(${song.formattedDuration})\n**ᴀʀᴛɪꜱᴛ:** ${song.uploader.name}\n**ᴠɪᴇᴡ:** ${formatNumber(song.views)}`,
       });
     }
     return embed;

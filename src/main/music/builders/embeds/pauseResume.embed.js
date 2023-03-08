@@ -24,14 +24,15 @@ module.exports = {
 
     return embed;
   },
-  Resume: (song) => {
+  Resume: (queue) => {
+    const song = queue.songs;
     const embed = new EmbedBuilder()
-      .setTitle(`${Emoji.remuse} - ʀᴇsᴜᴍɪɴɢ sᴏɴɢ`)
-      .setDescription(`**ɴᴏᴡ ᴘʟᴀʏɪɴɢ**: [${song.name}](${song.url})`)
+      .setTitle(`${Emoji.pause} - ʀᴇsᴜᴍɪɴɢ sᴏɴɢ`)
+      .setDescription(`**ɴᴏᴡ ᴘʟᴀʏɪɴɢ**: [${song[0].name}](${song[0].url})`)
       .addFields([
         {
           name: "———",
-          value: `sᴏɴɢ ᴅᴜʀᴀᴛɪᴏɴ: [${song.formattedCurrentTime}/${song.formattedDuration}]\n———`,
+          value: `sᴏɴɢ ᴅᴜʀᴀᴛɪᴏɴ: [${queue.formattedCurrentTime}/${queue.formattedDuration}]\n———`,
         },
       ])
       .setThumbnail(song.thumbnail)

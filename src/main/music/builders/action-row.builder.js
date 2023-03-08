@@ -48,10 +48,10 @@ module.exports = {
       .addComponents(VolumeBuilder.increaseVolumeBuilder(queue.volume + 5));
     return row;
   },
-  searchRowBuilder: async (songArr) => {
+  searchRowBuilder: async (songs) => {
     const row = new ActionRowBuilder()
     for (let i = 1; i < 6; i++) {
-      row.addComponents(searchbuilder.SelectSearchPlayButtonBuilder(i, songArr[i - 1]));
+      row.addComponents(searchbuilder.SelectSearchPlayButtonBuilder(i, songs[i - 1]));
     }
     return row;
   },
