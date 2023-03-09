@@ -1,15 +1,10 @@
-const {
-  ChatInputCommandInteraction,
-  ButtonInteraction,
-} = require("discord.js");
+const { ChatInputCommandInteraction } = require("discord.js");
 const { DisTube } = require("distube");
-const { volumeRowBuilder } = require("../../builders/action-row.builder");
-const { VolumeInfo } = require("../../builders/embeds/volume.embed");
-const { slashBuilder } = require("../../builders/volume.builder");
+const { slashBuilder } = require("../../builders/seek.builder");
 const { isQueueExist } = require("../../utils/distube.check");
 const {
-  joinSpeakerCheck,
   inVoiceChannel,
+  joinSpeakerCheck,
 } = require("../../utils/permission.check");
 
 module.exports = {
@@ -24,13 +19,15 @@ module.exports = {
     const queue = distube.getQueue(interaction.guildId);
 
     if (!inVoiceChannel(interaction)) return;
-    if (!joinSpeakerCheck(ButtonInteraction)) return;
+    if (!joinSpeakerCheck(interaction)) return;
     if (!isQueueExist(interaction, queue)) return;
 
-    const row = await volumeRowBuilder(queue);
-    await interaction.reply({
-      embeds: [VolumeInfo(queue.volume)],
-      components: [row],
-    });
+    const duration = interaction.options.getNumber("duration");
+    if (duration >= queue.songs[0].duration)
+      return await interaction.reply("Can't seek to this position"); // SeekOutBound
+
+    distube.seek(interaction.guildId, duration);
+
+    await interaction.reply("Song seek to..."); // SeekPosition
   },
 };
