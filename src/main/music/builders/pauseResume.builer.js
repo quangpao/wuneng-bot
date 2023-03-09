@@ -4,7 +4,7 @@ module.exports = {
   PauseSlashBuilder: () => {
     const builder = new SlashCommandBuilder()
       .setName("pause")
-      .setDescription("Pause the current song");
+      .setDescription("Pause or Resume the current song");
     return builder;
   },
 };

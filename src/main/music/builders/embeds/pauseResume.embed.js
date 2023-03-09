@@ -27,7 +27,7 @@ module.exports = {
   Resume: (queue) => {
     const song = queue.songs;
     const embed = new EmbedBuilder()
-      .setTitle(`${Emoji.pause} - ʀᴇsᴜᴍɪɴɢ sᴏɴɢ`)
+      .setTitle(`${Emoji.play} - ʀᴇsᴜᴍɪɴɢ sᴏɴɢ`)
       .setDescription(`**ɴᴏᴡ ᴘʟᴀʏɪɴɢ**: [${song[0].name}](${song[0].url})`)
       .addFields([
         {

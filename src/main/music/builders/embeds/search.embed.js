@@ -22,7 +22,7 @@ module.exports = {
         iconURL: interaction.member.displayAvatarURL(),
       })
       .setTimestamp();
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < songs.length; i++) {
       const song = songs[i]
       embed.addFields({
         name: `ㅤ`,

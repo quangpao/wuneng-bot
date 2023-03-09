@@ -14,7 +14,7 @@ module.exports = {
       );
     return builder
   },
-  SelectSearchPlayButtonBuilder:(songnumber = -1, songArr) => {
+  SelectSearchPlayButtonBuilder:(songnumber = -1, song) => {
     const builder = new ButtonBuilder()
       .setStyle(ButtonStyle.Primary)
       .setLabel(`${songnumber}`)
@@ -22,7 +22,7 @@ module.exports = {
       builder.setCustomId(`selecttoplay`)
     }
     else{
-      builder.setCustomId(`selecttoplay ${songArr.url}`)
+      builder.setCustomId(`selecttoplay ${song.url}`)
     }
     return builder
   }

@@ -50,7 +50,7 @@ module.exports = {
   },
   searchRowBuilder: async (songs) => {
     const row = new ActionRowBuilder()
-    for (let i = 1; i < 6; i++) {
+    for (let i = 1; i < songs.length + 1; i++) {
       row.addComponents(searchbuilder.SelectSearchPlayButtonBuilder(i, songs[i - 1]));
     }
     return row;

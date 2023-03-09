@@ -1,14 +1,13 @@
-const { StopSlashBuilder } = require("../../builders/stop.builder");
 const { ChatInputCommandInteraction } = require("discord.js");
-const {
-  NotInVoiceChannelEmbedBuilder,
-} = require("../../../../common/builders/General");
 const { DisTube } = require("distube");
+const { PauseSlashBuilder } = require("../../builders/pauseResume.builer");
+const { Pause, Resume } = require("../../builders/embeds/pauseResume.embed");
 const { QueueEmpty } = require("../../builders/embeds/queue.embed");
 const { isQueueExist } = require("../../utils/distube.check");
 const { inVoiceChannel } = require("../../utils/permission.check");
+
 module.exports = {
-  data: StopSlashBuilder(),
+  data: PauseSlashBuilder(),
   /**
    *
    * @param {ChatInputCommandInteraction} interaction
@@ -20,8 +19,12 @@ module.exports = {
     if (!inVoiceChannel(interaction)) return;
     if (!isQueueExist(interaction, queue)) return;
 
-    await distube.stop(interaction.guildId);
-    await interaction.reply(`Stop playing!`);
-    await queue.textChannel.send({ embeds: [QueueEmpty()] });
+    if (distube.getQueue(interaction.guildId).paused) {
+      distube.resume(interaction.guildId);
+      await interaction.reply({ embeds: [Resume(queue)] });
+    } else {
+      distube.pause(interaction.guildId);
+      await interaction.reply({ embeds: [Pause(queue)] });
+    }
   },
 };
