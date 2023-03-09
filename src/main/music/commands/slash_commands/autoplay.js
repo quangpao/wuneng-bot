@@ -1,12 +1,12 @@
 const { ChatInputCommandInteraction } = require("discord.js");
 const { DisTube } = require("distube");
-const {
-  NotInVoiceChannelEmbedBuilder,
-} = require("../../../../common/builders/General");
 const { slashBuilder } = require("../../builders/autoplay.builder");
 const Autoplay = require("../../builders/embeds/autoplay.embed");
-const { QueueEmpty } = require("../../builders/embeds/queue.embed");
-const { joinSpeakerCheck } = require("../../utils/permission.check");
+const { isQueueExist } = require("../../utils/distube.check");
+const {
+  joinSpeakerCheck,
+  inVoiceChannel,
+} = require("../../utils/permission.check");
 
 module.exports = {
   data: slashBuilder(),
@@ -17,16 +17,11 @@ module.exports = {
    * @param {{distube: DisTube}}
    */
   execute: async (interaction, { distube }) => {
-    const /** @type {VoiceChannel} */ channel =
-        interaction.member?.voice?.channel;
-    if (channel === undefined || channel === null)
-      return await interaction.reply({
-        embeds: [NotInVoiceChannelEmbedBuilder()],
-      });
-    if (!joinSpeakerCheck(interaction, channel)) return;
-
     const queue = distube.getQueue(interaction.guildId);
-    checkQueue(interaction, queue);
+
+    if (!inVoiceChannel(interaction)) return;
+    if (!joinSpeakerCheck(interaction)) return;
+    if (!canQueueExecutable(interaction, queue)) return;
 
     toggleAutoplay(
       distube.toggleAutoplay(interaction.guildId),
@@ -36,11 +31,13 @@ module.exports = {
   },
 };
 
-async function checkQueue(interaction, queue) {
-  if (queue === undefined)
-    return await interaction.reply({ embeds: [QueueEmpty()] });
-  if (queue.songs[0].source !== "youtube")
-    return await interaction.reply({ embeds: [Autoplay.NotYoutube()] });
+function canQueueExecutable(interaction, queue) {
+  if (!isQueueExist(interaction, queue)) return false;
+  if (queue.songs[0].source !== "youtube") {
+    interaction.reply({ embeds: [Autoplay.NotYoutube()] });
+    return false;
+  }
+  return true;
 }
 
 async function toggleAutoplay(autoplay, interaction, queue) {

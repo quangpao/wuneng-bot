@@ -1,14 +1,11 @@
 const { ChatInputCommandInteraction } = require("discord.js");
 const { DisTube } = require("distube");
 const {
-  NotInVoiceChannelEmbedBuilder,
-} = require("../../../../common/builders/General");
-const {
   NoPrevious,
   PreviousSong,
 } = require("../../builders/embeds/previous.embed");
-const { QueueEmpty } = require("../../builders/embeds/queue.embed");
 const { slashBuilder } = require("../../builders/previous.builder");
+const { isQueueExist } = require("../../utils/distube.check");
 
 module.exports = {
   data: slashBuilder(),
@@ -20,8 +17,7 @@ module.exports = {
    */
   execute: async (interaction, { distube }) => {
     const queue = distube.getQueue(interaction.guildId);
-    if (queue === undefined)
-      return await interaction.reply({ embeds: [QueueEmpty()] });
+    if (!isQueueExist(interaction, queue)) return;
     if (queue.previousSongs.length === 0)
       return await interaction.reply({
         embeds: [NoPrevious()],
