@@ -1,13 +1,15 @@
-const { StringSelectMenuInteraction, ComponentType } = require("discord.js");
-const { DisTube } = require("distube");
 const {
-  NotInVoiceChannelEmbedBuilder,
-} = require("../../../../common/builders/General");
+  StringSelectMenuInteraction,
+  ComponentType,
+  TextChannel,
+} = require("discord.js");
+const { DisTube } = require("distube");
 const { jumpRowBuilder } = require("../../builders/action-row.builder");
 const { PlaySong } = require("../../builders/embeds/distube-event.embed");
-const { JumpedSong, NoSongJump } = require("../../builders/embeds/jump.embed");
-const { QueueEmpty } = require("../../builders/embeds/queue.embed");
+const { JumpedSong } = require("../../builders/embeds/jump.embed");
 const { previousJumpMenuBuilder } = require("../../builders/jump.builder");
+const { isQueueExist, isJumpable } = require("../../utils/distube.check");
+const { inVoiceChannel } = require("../../utils/permission.check");
 
 module.exports = {
   data: previousJumpMenuBuilder(),
@@ -18,40 +20,13 @@ module.exports = {
    * @param {{distube: DisTube}}
    */
   execute: async (interaction, { distube }) => {
-    const /** @type {VoiceChannel} */ channel =
-        interaction.member?.voice?.channel;
-    if (channel === undefined || channel === null)
-      return await interaction.reply({
-        embeds: [NotInVoiceChannelEmbedBuilder()],
-      });
-
     const queue = distube.getQueue(interaction.guildId);
-    if (queue === undefined)
-      return await interaction.reply({ embeds: [QueueEmpty()] });
-    if (queue.songs.length === 1 && queue.previousSongs.length === 0)
-      return await interaction.reply({ embeds: [NoSongJump()] });
 
-    const /** @type TextChannel */ textChannel = interaction.channel;
-    const collector = textChannel.createMessageComponentCollector({
-      time: 10000,
-      componentType: ComponentType.StringSelect,
-    });
+    if (!inVoiceChannel(interaction)) return;
+    if (!isQueueExist(interaction, queue)) return;
+    if (!isJumpable(interaction, queue)) return;
 
-    collector.on("end", (collected) => {
-      if (collected.size === 0) {
-        interaction.editReply({
-          components: [],
-        });
-      }
-      if (distube.listenerCount("playSong") === 0) {
-        distube.on("playSong", (queue, song) => {
-          if (queue.autoplay) return;
-          queue.textChannel.send({
-            embeds: [PlaySong(song)],
-          });
-        });
-      }
-    });
+    await collectorHandler(interaction, distube);
 
     distube.removeAllListeners("playSong");
 
@@ -61,19 +36,38 @@ module.exports = {
     );
 
     const { previousSongs, songs } = distube.getQueue(interaction.guildId);
+    const rows = await jumpRowBuilder(
+      previousSongs.slice(0, previousSongs.length - 1),
+      [ previousSongs[previousSongs.length - 1], ...songs ]
+    );
 
-    await jumpRowBuilder(previousSongs.slice(0, previousSongs.length - 1), [
-      previousSongs[previousSongs.length - 1],
-      ...songs,
-    ])
-      .then(async (row) => {
-        await interaction.update({
-          embeds: [JumpedSong(song)],
-          components: row,
-        });
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    await interaction.update({
+      embeds: [JumpedSong(song)],
+      components: rows,
+    });
   },
 };
+
+async function collectorHandler(interaction, distube) {
+  const /** @type TextChannel */ textChannel = interaction.channel;
+  const collector = textChannel.createMessageComponentCollector({
+    time: 10000,
+    componentType: ComponentType.StringSelect,
+  });
+
+  collector.on("end", (collected) => {
+    if (collected.size === 0) {
+      interaction.editReply({
+        components: [],
+      });
+    }
+    if (distube.listenerCount("playSong") === 0) {
+      distube.on("playSong", (queue, song) => {
+        if (queue.autoplay) return;
+        queue.textChannel.send({
+          embeds: [PlaySong(song)],
+        });
+      });
+    }
+  });
+}

@@ -1,8 +1,8 @@
 const { ChatInputCommandInteraction } = require("discord.js");
 const { DisTube } = require("distube");
-const { QueueEmpty } = require("../../builders/embeds/queue.embed");
 const { ShuffeItSelf } = require("../../builders/embeds/shuffle.embed");
 const { slashBuilder } = require("../../builders/shuffle.builder");
+const { isQueueExist } = require("../../utils/distube.check");
 
 module.exports = {
   data: slashBuilder(),
@@ -13,14 +13,13 @@ module.exports = {
    * @param {{distube: DisTube}}
    */
   execute: async (interaction, { distube }) => {
-    const queue = distube.getQueue(interaction.guildId);
-    if (queue === undefined)
-      return await interaction.reply({ embeds: [QueueEmpty()] });
+    let queue = distube.getQueue(interaction.guildId);
+
+    if (!isQueueExist(interaction, queue)) return;
     if (queue.songs.length === 1)
       return await interaction.reply({ embeds: [ShuffeItSelf()] });
 
-    await distube.shuffle(interaction.guildId).then((queue) => {
-      interaction.reply("Queue shuffled");
-    });
+    queue = await distube.shuffle(interaction.guildId);
+    await interaction.reply("Queue shuffled");
   },
 };

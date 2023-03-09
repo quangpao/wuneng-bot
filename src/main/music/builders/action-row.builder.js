@@ -18,23 +18,23 @@ module.exports = {
    * @returns {Promise<ActionRowBuilder[]>}
    */
   jumpRowBuilder: async (previousSongs, nextSongs) => {
-    const row = [];
+    const rows = [];
 
     if (previousSongs.length > 0) {
-      row.push(
+      rows.push(
         new ActionRowBuilder().addComponents(
           JumpBuilder.previousJumpMenuBuilder(previousSongs)
         )
       );
     }
     if (nextSongs.length > 1) {
-      row.push(
+      rows.push(
         new ActionRowBuilder().addComponents(
           JumpBuilder.nextJumpMenuBuilder(nextSongs)
         )
       );
     }
-    return row;
+    return rows;
   },
 
   /**
