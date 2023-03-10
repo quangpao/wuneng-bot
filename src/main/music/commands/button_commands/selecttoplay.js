@@ -1,22 +1,20 @@
-const {
-  ChatInputCommandInteraction,
-  VoiceChannel,
-  PermissionFlagsBits,
-} = require("discord.js");
+const { ButtonInteraction, PermissionFlagsBits } = require("discord.js");
 const { DisTube } = require("distube");
-const PlayBuilder = require("../../builders/play.builder");
-const Emoji = require("../../../../common/utils/Emoji");
 const {
   joinSpeakerCheck,
   inVoiceChannel,
   hasPermission,
 } = require("../../utils/permission.check");
+const {
+  SelectSearchPlayButtonBuilder,
+} = require("../../builders/search.builder");
+
 module.exports = {
-  data: PlayBuilder.slashBuilder(),
+  data: SelectSearchPlayButtonBuilder(),
 
   /**
    *
-   * @param {ChatInputCommandInteraction} interaction
+   * @param {ButtonInteraction} interaction
    * @param {{distube: DisTube}}
    */
   execute: async (interaction, { distube }) => {
@@ -27,13 +25,9 @@ module.exports = {
     if (!joinSpeakerCheck(interaction)) return;
     if (!hasPermission(interaction, PermissionFlagsBits.SendMessages)) return;
 
-    const query = interaction.options.getString("song");
-    await interaction.reply(`${Emoji.search} - Searching for \`${query}\``);
-    await distube.play(channel, query, {
+    await distube.play(channel, interaction.extraData, {
       textChannel: interaction.channel,
       member: interaction.member,
     });
-
-    await interaction.deleteReply();
   },
 };

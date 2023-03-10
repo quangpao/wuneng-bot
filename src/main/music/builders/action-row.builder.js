@@ -2,6 +2,7 @@ const { ActionRowBuilder } = require("discord.js");
 const QueueBuilder = require("./queue.builder");
 const JumpBuilder = require("./jump.builder");
 const VolumeBuilder = require("./volume.builder");
+const searchbuilder = require("./search.builder")
 const { Song, Queue } = require("distube");
 
 module.exports = {
@@ -45,6 +46,13 @@ module.exports = {
     const row = new ActionRowBuilder()
       .addComponents(VolumeBuilder.decreaseVolumeBuilder(queue.volume - 5))
       .addComponents(VolumeBuilder.increaseVolumeBuilder(queue.volume + 5));
+    return row;
+  },
+  searchRowBuilder: async (songs) => {
+    const row = new ActionRowBuilder()
+    for (let i = 1; i < songs.length + 1; i++) {
+      row.addComponents(searchbuilder.SelectSearchPlayButtonBuilder(i, songs[i - 1]));
+    }
     return row;
   },
 };
