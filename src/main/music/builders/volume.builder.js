@@ -9,7 +9,7 @@ module.exports = {
   slashBuilder: () => {
     const builder = new SlashCommandBuilder()
       .setName("volume")
-      .setDescription("Set the song volume.");
+      .setDescription("Set the song volume");
     return builder;
   },
 

@@ -1,4 +1,8 @@
-const { ButtonInteraction, PermissionFlagsBits } = require("discord.js");
+const {
+  ButtonInteraction,
+  PermissionFlagsBits,
+  VoiceChannel,
+} = require("discord.js");
 const { DisTube } = require("distube");
 const {
   joinSpeakerCheck,
@@ -8,12 +12,13 @@ const {
 const {
   SelectSearchPlayButtonBuilder,
 } = require("../../builders/search.builder");
+const { logger } = require("../../../../common/utils/Utilities");
 
 module.exports = {
   data: SelectSearchPlayButtonBuilder(),
 
   /**
-   *
+   * Play music from search result list
    * @param {ButtonInteraction} interaction
    * @param {{distube: DisTube}}
    */
@@ -21,13 +26,19 @@ module.exports = {
     const /** @type {VoiceChannel} */ channel =
         interaction.member?.voice?.channel;
 
-    if (!inVoiceChannel(interaction)) return;
-    if (!joinSpeakerCheck(interaction)) return;
-    if (!hasPermission(interaction, PermissionFlagsBits.SendMessages)) return;
+    // Permission check
+    if (!(await inVoiceChannel(interaction))) return;
+    if (!(await joinSpeakerCheck(interaction))) return;
+    if (!(await hasPermission(interaction, PermissionFlagsBits.SendMessages)))
+      return;
 
-    await distube.play(channel, interaction.extraData, {
-      textChannel: interaction.channel,
-      member: interaction.member,
-    });
+    try {
+      await distube.play(channel, interaction.extraData, {
+        textChannel: interaction.channel,
+        member: interaction.member,
+      });
+    } catch (error) {
+      logger(error, interaction.user);
+    }
   },
 };

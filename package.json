@@ -21,7 +21,7 @@
   "homepage": "https://gitlab.com/quangpao/wuneng-bot#readme",
   "dependencies": {
     "@discordjs/builders": "^1.4.0",
-    "@discordjs/opus": "^0.8.0",
+    "@discordjs/opus": "^0.9.0",
     "@discordjs/rest": "^1.5.0",
     "@discordjs/voice": "^0.14.0",
     "@distube/soundcloud": "^1.3.0",
@@ -32,9 +32,11 @@
     "distube": "^4.0.4",
     "dotenv": "^16.0.3",
     "prettier": "^2.8.4",
-    "sodium": "^3.0.2"
+    "sodium": "^3.0.2",
+    "winston": "^3.8.2",
+    "winston-daily-rotate-file": "^4.7.1"
   },
   "devDependencies": {
-    "eslint": "^8.34.0"
+    "eslint": "^8.35.0"
   }
 }

@@ -9,28 +9,28 @@ const { QueueEmpty } = require("../builders/embeds/queue.embed");
 
 module.exports = {
   /**
-   *
+   * Check if queue exist
    * @param {ButtonInteraction | ChatInputCommandInteraction | StringSelectMenuInteraction} interaction
    * @param {Queue} queue
    * @returns
    */
-  isQueueExist: (interaction, queue) => {
+  isQueueExist: async (interaction, queue) => {
     if (queue === undefined) {
-      interaction.reply({ embeds: [QueueEmpty()] });
+      await interaction.reply({ embeds: [QueueEmpty()] });
       return false;
     }
     return true;
   },
 
   /**
-   *
+   * Check if queue is jumpable (not only 1 song in queue)
    * @param {ButtonInteraction | ChatInputCommandInteraction | StringSelectMenuInteraction} interaction
    * @param {Queue} queue
    * @returns
    */
-  isJumpable: (interaction, queue) => {
+  isJumpable: async (interaction, queue) => {
     if (queue.songs.length === 1 && queue.previousSongs.length === 0) {
-      interaction.reply({ embeds: [NoSongJump()] });
+      await interaction.reply({ embeds: [NoSongJump()] });
       return false;
     }
     return true;

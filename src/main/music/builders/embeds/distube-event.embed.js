@@ -2,7 +2,7 @@ const { EmbedBuilder } = require("discord.js");
 const { Song, Playlist } = require("distube");
 const Color = require("../../../../common/utils/Color");
 const Emoji = require("../../../../common/utils/Emoji");
-const { formatNumber } = require("../../utils/string.utils");
+const { formatNumber } = require("../../../../common/utils/Utilities");
 
 module.exports = {
   /**

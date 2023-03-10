@@ -1,5 +1,6 @@
 const { ChatInputCommandInteraction } = require("discord.js");
 const { DisTube } = require("distube");
+const { logger } = require("../../../../common/utils/Utilities");
 const { slashBuilder } = require("../../builders/seek.builder");
 const { isQueueExist } = require("../../utils/distube.check");
 const {
@@ -11,22 +12,27 @@ module.exports = {
   data: slashBuilder(),
 
   /**
-   *
+   * Seek to a position in the current song (in seconds)
    * @param {ChatInputCommandInteraction} interaction
    * @param {{distube: DisTube}}
    */
   execute: async (interaction, { distube }) => {
     const queue = distube.getQueue(interaction.guildId);
 
-    if (!inVoiceChannel(interaction)) return;
-    if (!joinSpeakerCheck(interaction)) return;
-    if (!isQueueExist(interaction, queue)) return;
+    // Permission check
+    if (!(await inVoiceChannel(interaction))) return;
+    if (!(await joinSpeakerCheck(interaction))) return;
+    if (!(await isQueueExist(interaction, queue))) return;
 
-    const duration = interaction.options.getNumber("duration");
-    if (duration >= queue.songs[0].duration)
-      return await interaction.reply("Can't seek to this position"); // SeekOutBound
+    try {
+      const duration = interaction.options.getNumber("duration");
+      if (duration >= queue.songs[0].duration)
+        return await interaction.reply("Can't seek to this position"); // SeekOutBound
 
-    distube.seek(interaction.guildId, duration);
+      queue.seek(duration);
+    } catch (error) {
+      logger(error, interaction.user);
+    }
 
     await interaction.reply("Song seek to..."); // SeekPosition
   },
