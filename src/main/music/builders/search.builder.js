@@ -1,4 +1,8 @@
-const { SlashCommandBuilder, ButtonBuilder, ButtonStyle, } = require("discord.js");
+const {
+  SlashCommandBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+} = require("discord.js");
 const Color = require("../../../common/utils/Color");
 
 module.exports = {
@@ -12,18 +16,17 @@ module.exports = {
           .setDescription("Input the song name")
           .setRequired(true)
       );
-    return builder
+    return builder;
   },
-  SelectSearchPlayButtonBuilder:(songnumber = -1, song) => {
+  SelectSearchPlayButtonBuilder: (songnumber = -1, song) => {
     const builder = new ButtonBuilder()
       .setStyle(ButtonStyle.Primary)
-      .setLabel(`${songnumber}`)
-    if(songnumber === -1){
-      builder.setCustomId(`selecttoplay`)
+      .setLabel(`${songnumber}`);
+    if (songnumber === -1) {
+      builder.setCustomId(`selecttoplay`);
+    } else {
+      builder.setCustomId(`selecttoplay ${song.url}`);
     }
-    else{
-      builder.setCustomId(`selecttoplay ${song.url}`)
-    }
-    return builder
-  }
+    return builder;
+  },
 };

@@ -28,7 +28,7 @@ module.exports = {
     if (!isQueueExist(interaction, queue)) return;
     if (!isJumpable(interaction, queue)) return;
 
-    await collectorHanler(interaction, queue);
+    await collectorHandler(interaction, queue);
 
     const rows = await jumpRowBuilder(queue.previousSongs, queue.songs);
     await interaction.reply({
@@ -38,7 +38,7 @@ module.exports = {
   },
 };
 
-async function collectorHanler(interaction) {
+async function collectorHandler(interaction) {
   const /** @type TextChannel */ textChannel = interaction.channel;
   const collector = textChannel.createMessageComponentCollector({
     time: 60000,

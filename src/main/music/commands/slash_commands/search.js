@@ -24,13 +24,12 @@ module.exports = {
     const row = await searchRowBuilder(songs);
 
     await interaction.reply({
-      embeds: [SearchEmbedBuilder(songs, interaction)],
+      embeds: [SearchEmbedBuilder(songs, interaction.member)],
       components: [row],
     });
     await collectionHandler(interaction);
   },
 };
-
 
 async function collectionHandler(interaction) {
   const /** @type TextChannel */ textChannel = interaction.channel;

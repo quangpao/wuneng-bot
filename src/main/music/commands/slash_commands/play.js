@@ -29,7 +29,6 @@ module.exports = {
 
     const query = interaction.options.getString("song");
     await interaction.reply(`${Emoji.search} - Searching for \`${query}\``);
-    console.log(query)
     await distube.play(channel, query, {
       textChannel: interaction.channel,
       member: interaction.member,

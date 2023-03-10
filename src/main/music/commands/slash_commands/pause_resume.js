@@ -1,8 +1,7 @@
 const { ChatInputCommandInteraction } = require("discord.js");
 const { DisTube } = require("distube");
-const { PauseSlashBuilder } = require("../../builders/pauseResume.builer");
-const { Pause, Resume } = require("../../builders/embeds/pauseResume.embed");
-const { QueueEmpty } = require("../../builders/embeds/queue.embed");
+const { Resume, Pause } = require("../../builders/embeds/pause_resume.embed");
+const { PauseSlashBuilder } = require("../../builders/pause_resume.builer");
 const { isQueueExist } = require("../../utils/distube.check");
 const { inVoiceChannel } = require("../../utils/permission.check");
 
