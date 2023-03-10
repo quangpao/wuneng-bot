@@ -1,5 +1,6 @@
 const { ButtonInteraction } = require("discord.js");
 const { DisTube } = require("distube");
+const { logger } = require("../../../../common/utils/Utilities");
 const { volumeRowBuilder } = require("../../builders/action-row.builder");
 const { VolumeInfo } = require("../../builders/embeds/volume.embed");
 const { decreaseVolumeBuilder } = require("../../builders/volume.builder");
@@ -13,26 +14,29 @@ module.exports = {
   data: decreaseVolumeBuilder(),
 
   /**
-   *
+   * Decrease volume of music player
    * @param {ButtonInteraction} interaction
    * @param {{distube: DisTube}}
    */
   execute: async (interaction, { distube }) => {
     let queue = distube.getQueue(interaction.guildId);
 
-    if (!inVoiceChannel(interaction)) return;
-    if (!joinSpeakerCheck(interaction)) return;
-    if (!isQueueExist(interaction, queue)) return;
+    // Permission check
+    if (!(await inVoiceChannel(interaction))) return;
+    if (!(await joinSpeakerCheck(interaction))) return;
+    if (!(await isQueueExist(interaction, queue))) return;
 
-    queue = distube.setVolume(
-      interaction.guildId,
-      parseInt(interaction.extraData)
-    );
+    try {
+      // Decrease volume
+      queue = queue.setVolume(parseInt(interaction.extraData));
 
-    const row = await volumeRowBuilder(queue);
-    await interaction.update({
-      embeds: [VolumeInfo(queue.volume, false)],
-      components: [row],
-    });
+      const row = await volumeRowBuilder(queue);
+      await interaction.update({
+        embeds: [VolumeInfo(queue.volume, false)],
+        components: [row],
+      });
+    } catch (error) {
+      logger(error, interaction.user);
+    }
   },
 };

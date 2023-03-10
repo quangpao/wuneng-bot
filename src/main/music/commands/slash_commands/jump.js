@@ -4,6 +4,7 @@ const {
   ComponentType,
 } = require("discord.js");
 const { DisTube } = require("distube");
+const { logger } = require("../../../../common/utils/Utilities");
 const { jumpRowBuilder } = require("../../builders/action-row.builder");
 const {
   SelectJump,
@@ -17,27 +18,38 @@ module.exports = {
   data: slashBuilder(),
 
   /**
-   *
+   * Jump to specific position in queue
    * @param {ChatInputCommandInteraction} interaction
    * @param {{distube: DisTube}}
    */
   execute: async (interaction, { distube }) => {
     const queue = distube.getQueue(interaction.guildId);
 
-    if (!inVoiceChannel(interaction)) return;
-    if (!isQueueExist(interaction, queue)) return;
-    if (!isJumpable(interaction, queue)) return;
+    // Permission check
+    if (!(await inVoiceChannel(interaction))) return;
+    if (!(await isQueueExist(interaction, queue))) return;
+    if (!(await isJumpable(interaction, queue))) return;
 
-    await collectorHandler(interaction, queue);
+    try {
+      // Check if no response from user
+      await collectorHandler(interaction, queue);
 
-    const rows = await jumpRowBuilder(queue.previousSongs, queue.songs);
-    await interaction.reply({
-      embeds: [SelectJump()],
-      components: rows,
-    });
+      // Send embed and action row
+      const rows = await jumpRowBuilder(queue.previousSongs, queue.songs);
+      await interaction.reply({
+        embeds: [SelectJump()],
+        components: rows,
+      });
+    } catch (error) {
+      logger(error, interaction.user);
+    }
   },
 };
 
+/**
+ * Check if no response from user
+ * @param {ChatInputCommandInteraction} interaction
+ */
 async function collectorHandler(interaction) {
   const /** @type TextChannel */ textChannel = interaction.channel;
   const collector = textChannel.createMessageComponentCollector({
@@ -45,9 +57,9 @@ async function collectorHandler(interaction) {
     componentType: ComponentType.StringSelect,
   });
 
-  collector.on("end", (collected) => {
+  collector.on("end", async (collected) => {
     if (collected.size === 0) {
-      interaction.editReply({
+      await interaction.editReply({
         embeds: [SelectJumpTimedOut()],
         components: [],
       });

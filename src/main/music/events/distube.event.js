@@ -32,34 +32,6 @@ module.exports = (client) => {
     queue.volume = 100;
   });
 
-  client.distube.on("noRelated", (queue) => {
-    console.log(queue);
-    // TODO
-  });
-  client.distube.on("searchCancel", (message, query) => {
-    console.log(`searchCancel!!!!!!!!!!!!!`)
-    // TODO
-  })
-
-  client.distube.on("searchDone", (message, answer, query) => {
-    console.log(`searchDone!!!!!!!!!!!!!!!!!!!`)
-    // TODO
-  })
-
-  client.distube.on("searchInvalidAnswer", (message, answer, query) => {
-    console.log(`searchInvalidAnswer!!!!!!!!!!!!!!!!!`)
-    // TODO
-  })
-
-  client.distube.on("searchNoResult", (message, query) => {
-    console.log(`searchNoResult!!!!!!!!!!!!!!!!`)
-    // TODO
-  })
-
-  client.distube.on("searchResult", (message, results, query) => {
-    console.log(`searchResult!!!!!!!!!!!!!`)
-    // TODO
-  })
   /*
   client.distube.on("deleteQueue", (queue) => {
     console.log(queue)

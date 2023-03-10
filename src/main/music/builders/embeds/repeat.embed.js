@@ -2,7 +2,7 @@ const { EmbedBuilder, GuildMember } = require("discord.js");
 const { Song, Queue } = require("distube");
 const Color = require("../../../../common/utils/Color");
 const Emoji = require("../../../../common/utils/Emoji");
-const { formatNumber } = require("../../utils/string.utils");
+const { formatNumber } = require("../../../../common/utils/Utilities");
 
 module.exports = {
   AlrAutoplay: () => {
@@ -17,7 +17,6 @@ module.exports = {
       ])
       .setColor(Color.SECONDARY.DARK)
       .setTimestamp();
-
     return embed;
   },
 
@@ -50,7 +49,6 @@ module.exports = {
         iconURL: member.user.displayAvatarURL({ dynamic: true }),
       })
       .setTimestamp();
-
     return embed;
   },
 
@@ -85,7 +83,6 @@ module.exports = {
         value: `[${songs[x - 1].name}](${songs[x - 1].url})`,
       });
     }
-
     return embed;
   },
 
@@ -101,7 +98,6 @@ module.exports = {
       ])
       .setColor(Color.SECONDARY.DARK)
       .setTimestamp();
-
     return embed;
   },
 };

@@ -4,6 +4,7 @@ const {
   TextChannel,
 } = require("discord.js");
 const { DisTube } = require("distube");
+const { logger } = require("../../../../common/utils/Utilities");
 const { jumpRowBuilder } = require("../../builders/action-row.builder");
 const { PlaySong } = require("../../builders/embeds/distube-event.embed");
 const { JumpedSong } = require("../../builders/embeds/jump.embed");
@@ -15,38 +16,47 @@ module.exports = {
   data: nextJumpMenuBuilder(),
 
   /**
-   *
+   * Jump to next song (SelectMenu)
    * @param {StringSelectMenuInteraction} interaction
    * @param {{distube: DisTube}}
    */
   execute: async (interaction, { distube }) => {
     const queue = distube.getQueue(interaction.guildId);
 
-    if (!inVoiceChannel(interaction)) return;
-    if (!isQueueExist(interaction, queue)) return;
+    // Permission check
+    if (!(await inVoiceChannel(interaction))) return;
+    if (!(await isQueueExist(interaction, queue))) return;
     if (!isJumpable(interaction, queue)) return;
 
-    await collectorHandler(interaction, queue);
+    try {
+      // Collect jump menu interaction
+      await collectorHandler(interaction, queue);
+      distube.removeAllListeners("playSong");
 
-    distube.removeAllListeners("playSong");
+      const song = await queue.jump(parseInt(interaction.values[0]));
 
-    const song = await distube.jump(
-      interaction.guildId,
-      parseInt(interaction.values[0])
-    );
+      // Update jump menu
+      const { previousSongs, songs } = distube.getQueue(interaction.guildId);
+      const rows = await jumpRowBuilder(
+        [ ...previousSongs, songs[0] ],
+        songs.slice(1)
+      );
 
-    const { previousSongs, songs } = distube.getQueue(interaction.guildId);
-    const rows = await jumpRowBuilder(
-      [ ...previousSongs, songs[0] ],
-      songs.slice(1)
-    );
-    await interaction.update({
-      embeds: [JumpedSong(song)],
-      components: rows,
-    });
+      await interaction.update({
+        embeds: [JumpedSong(song)],
+        components: rows,
+      });
+    } catch (error) {
+      logger(error, interaction.user);
+    }
   },
 };
 
+/**
+ *
+ * @param {StringSelectMenuInteraction} interaction
+ * @param {DisTube} distube
+ */
 async function collectorHandler(interaction, distube) {
   const /** @type TextChannel */ textChannel = interaction.channel;
   const collector = textChannel.createMessageComponentCollector({
@@ -54,9 +64,9 @@ async function collectorHandler(interaction, distube) {
     componentType: ComponentType.StringSelect,
   });
 
-  collector.on("end", (collected) => {
+  collector.on("end", async (collected) => {
     if (collected.size === 0) {
-      interaction.editReply({
+      await interaction.editReply({
         components: [],
       });
     }

@@ -3,13 +3,12 @@ const {
   ButtonBuilder,
   ButtonStyle,
 } = require("discord.js");
-const Color = require("../../../common/utils/Color");
 
 module.exports = {
   SearchSlashBuilder: () => {
     const builder = new SlashCommandBuilder()
       .setName("search")
-      .setDescription("Search some songs to play!")
+      .setDescription("Search some songs to play")
       .addStringOption((option) =>
         option
           .setName("song")
