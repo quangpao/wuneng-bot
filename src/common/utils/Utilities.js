@@ -1,4 +1,4 @@
-const { User } = require("discord.js");
+const { User, ChatInputCommandInteraction, ButtonInteraction, StringSelectMenuInteraction } = require("discord.js");
 const { dashLogger } = require("../classes/logger");
 
 module.exports = {
@@ -21,10 +21,12 @@ module.exports = {
   /**
    *
    * @param {error} error
-   * @param {User} user
+   * @param {ChatInputCommandInteraction | ButtonInteraction | StringSelectMenuInteraction} interaction
    */
-  logger: (error, user) => {
+  logger: (error, interaction) => {
     console.error(error);
-    dashLogger.error(`Error : ${error},Request : ${user.username}`);
+    dashLogger.error(`Error : ${error},Request : ${interaction.user.username}`);
+    dashLogger.error(`Command : ${interaction.commandName}`);
+    dashLogger.error(`CustomId : ${interaction.customId}`);
   },
 };

@@ -53,7 +53,7 @@ async function setRepeatMode(interaction, queue, toggle) {
     case "1": {
       queue.setRepeatMode(1);
       await interaction.reply({
-        embeds: [SongRepeatMode(queue, interaction.member)],
+        embeds: [SongRepeatMode(queue.songs[0], interaction.member)],
       });
       break;
     }
