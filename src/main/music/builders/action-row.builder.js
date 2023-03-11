@@ -44,8 +44,9 @@ module.exports = {
    */
   volumeRowBuilder: async (queue) => {
     const row = new ActionRowBuilder()
-      .addComponents(VolumeBuilder.decreaseVolumeBuilder(queue.volume - 5))
-      .addComponents(VolumeBuilder.increaseVolumeBuilder(queue.volume + 5));
+      .addComponents(VolumeBuilder.decreaseVolumeBuilder(queue.volume - 10))
+      .addComponents(VolumeBuilder.increaseVolumeBuilder(queue.volume + 10));
+
     return row;
   },
   searchRowBuilder: async (songs) => {

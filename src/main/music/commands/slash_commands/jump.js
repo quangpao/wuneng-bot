@@ -49,6 +49,7 @@ module.exports = {
       await interaction.reply({
         embeds: [SelectJump()],
         components: rows,
+        ephemeral: true,
       });
 
       // Add user to cooldown

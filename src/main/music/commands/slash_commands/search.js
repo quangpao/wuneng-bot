@@ -36,6 +36,8 @@ module.exports = {
       return await interaction.reply(`${Emoji.stop}Song name to long.`);
 
     try {
+      await collectionHandler(interaction);
+
       const songs = await distube.search(name, { limit: 5 });
       const row = await searchRowBuilder(songs);
 
@@ -43,7 +45,6 @@ module.exports = {
         embeds: [SearchEmbedBuilder(songs, interaction.member)],
         components: [row],
       });
-      await collectionHandler(interaction);
 
       // Add user to cooldown
       cooldown.add(interaction.user.id);
