@@ -16,9 +16,19 @@ module.exports = {
   /**
    *
    * @param {ChatInputCommandInteraction} interaction
-   * @param {{distube: DisTube}}
+   * @param {{cooldown: Set, cooldownTime: number ,distube: DisTube}}
    */
-  execute: async (interaction, { distube }) => {
+  execute: async (interaction, { cooldown, cooldownTime, distube }) => {
+    if (cooldown.has(interaction.user.id)) {
+      await interaction.reply({
+        content: `Please wait ${
+          cooldownTime / 1000
+        } more second(s) before reusing the command.`,
+        ephemeral: true,
+      });
+      return;
+    }
+
     const name = interaction.options.getString("song");
 
     // Condition check
@@ -34,6 +44,12 @@ module.exports = {
         components: [row],
       });
       await collectionHandler(interaction);
+
+      // Add user to cooldown
+      cooldown.add(interaction.user.id);
+      setTimeout(() => {
+        cooldown.delete(interaction.user.id);
+      }, cooldownTime);
     } catch (error) {
       logger(error, interaction);
     }

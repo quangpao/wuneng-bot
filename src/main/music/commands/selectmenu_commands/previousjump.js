@@ -18,9 +18,19 @@ module.exports = {
   /**
    * Jump to previous song (SelectMenu)
    * @param {StringSelectMenuInteraction} interaction
-   * @param {{distube: DisTube}}
+   * @param {{cooldown: Set, cooldownTime: number ,distube: DisTube}}
    */
-  execute: async (interaction, { distube }) => {
+  execute: async (interaction, { cooldown, cooldownTime, distube }) => {
+    if (cooldown.has(interaction.user.id)) {
+      await interaction.reply({
+        content: `Please wait ${
+          cooldownTime / 1000
+        } more second(s) before reusing the command.`,
+        ephemeral: true,
+      });
+      return;
+    }
+
     const queue = distube.getQueue(interaction.guildId);
 
     // Permission check
@@ -49,6 +59,12 @@ module.exports = {
         embeds: [JumpedSong(song)],
         components: rows,
       });
+
+      // Add user to cooldown
+      cooldown.add(interaction.user.id);
+      setTimeout(() => {
+        cooldown.delete(interaction.user.id);
+      }, cooldownTime);
     } catch (error) {
       logger(error, interaction);
     }

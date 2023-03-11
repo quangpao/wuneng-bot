@@ -27,6 +27,8 @@ class WNClient extends Client {
     this.buttonCommands = new Collection();
     this.selectmenuCommands = new Collection();
     this.slashCommandArray = [];
+    this.cooldown = new Set();
+    this.cooldownTime = 3000;
     this.distube = new DisTube(this, {
       searchSongs: 5,
       searchCooldown: 30,
