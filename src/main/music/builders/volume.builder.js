@@ -16,6 +16,7 @@ module.exports = {
   increaseVolumeBuilder: (number = undefined) => {
     const builder = new ButtonBuilder()
       .setEmoji(Emoji.volumeId)
+      .setLabel(`+10 %`)
       .setStyle(ButtonStyle.Success)
       .setDisabled(number >= 105);
     if (number === undefined) {
@@ -29,6 +30,7 @@ module.exports = {
   decreaseVolumeBuilder: (number = undefined) => {
     const builder = new ButtonBuilder()
       .setEmoji(Emoji.lowVolumeId)
+      .setLabel(`-10 %`)
       .setStyle(ButtonStyle.Success)
       .setDisabled(number <= -5);
     if (number === undefined) {

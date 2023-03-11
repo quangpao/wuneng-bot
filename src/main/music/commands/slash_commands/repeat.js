@@ -20,9 +20,19 @@ module.exports = {
   /**
    * Toggle repeat mode (off, song, queue)
    * @param {ChatInputCommandInteraction} interaction
-   * @param {{distube: DisTube}}
+   * @param {{cooldown: Set, cooldownTime: number ,distube: DisTube}}
    */
-  execute: async (interaction, { distube }) => {
+  execute: async (interaction, { cooldown, cooldownTime, distube }) => {
+    if (cooldown.has(interaction.user.id)) {
+      await interaction.reply({
+        content: `Please wait ${
+          cooldownTime / 1000
+        } more second(s) before reusing the command.`,
+        ephemeral: true,
+      });
+      return;
+    }
+
     const queue = distube.getQueue(interaction.guildId);
 
     // Permission check
@@ -36,8 +46,14 @@ module.exports = {
       // Toggle repeat mode
       const toggle = interaction.options.getString("toggle");
       await setRepeatMode(interaction, queue, toggle);
+
+      // Add user to cooldown
+      cooldown.add(interaction.user.id);
+      setTimeout(() => {
+        cooldown.delete(interaction.user.id);
+      }, cooldownTime);
     } catch (error) {
-      logger(error, interaction.user);
+      logger(error, interaction);
     }
   },
 };
@@ -53,7 +69,7 @@ async function setRepeatMode(interaction, queue, toggle) {
     case "1": {
       queue.setRepeatMode(1);
       await interaction.reply({
-        embeds: [SongRepeatMode(queue, interaction.member)],
+        embeds: [SongRepeatMode(queue.songs[0], interaction.member)],
       });
       break;
     }
