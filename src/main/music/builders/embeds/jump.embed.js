@@ -8,7 +8,6 @@ module.exports = {
   NoSongJump: () => {
     const embed = new EmbedBuilder()
       .setTitle(`${Emoji.loop} - ɴᴏ sᴏɴɢ ᴛᴏ ᴊᴜᴍᴘ`)
-      .setDescription("")
       .addFields([
         {
           name: "———",

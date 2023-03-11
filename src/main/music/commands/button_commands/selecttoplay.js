@@ -20,9 +20,19 @@ module.exports = {
   /**
    * Play music from search result list
    * @param {ButtonInteraction} interaction
-   * @param {{distube: DisTube}}
+   * @param {{cooldown: Set, cooldownTime: number ,distube: DisTube}}
    */
-  execute: async (interaction, { distube }) => {
+  execute: async (interaction, { cooldown, cooldownTime, distube }) => {
+    if (cooldown.has(interaction.user.id)) {
+      await interaction.reply({
+        content: `Please wait ${
+          cooldownTime / 1000
+        } more second(s) before reusing the command.`,
+        ephemeral: true,
+      });
+      return;
+    }
+
     const /** @type {VoiceChannel} */ channel =
         interaction.member?.voice?.channel;
 
@@ -37,8 +47,14 @@ module.exports = {
         textChannel: interaction.channel,
         member: interaction.member,
       });
+
+      // Add user to cooldown
+      cooldown.add(interaction.user.id);
+      setTimeout(() => {
+        cooldown.delete(interaction.user.id);
+      }, cooldownTime);
     } catch (error) {
-      logger(error, interaction.user);
+      logger(error, interaction);
     }
   },
 };
