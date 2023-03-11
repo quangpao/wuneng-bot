@@ -26,7 +26,7 @@ module.exports = {
       const song = await queue.skip();
       await interaction.reply({ embeds: [SkipSong(song)] });
     } catch (error) {
-      logger(error, interaction.user);
+      logger(error, interaction);
     }
   },
 };

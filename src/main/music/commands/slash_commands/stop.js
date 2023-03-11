@@ -28,7 +28,7 @@ module.exports = {
       await interaction.reply(`Stop playing!`);
       await queue.textChannel.send({ embeds: [QueueEmpty()] });
     } catch (error) {
-      logger(error, interaction.user);
+      logger(error, interaction);
     }
   },
 };

@@ -38,7 +38,7 @@ module.exports = {
         member: interaction.member,
       });
     } catch (error) {
-      logger(error, interaction.user);
+      logger(error, interaction);
     }
 
     await interaction.deleteReply();

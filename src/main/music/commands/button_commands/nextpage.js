@@ -34,7 +34,7 @@ module.exports = {
         components: [row],
       });
     } catch (error) {
-      logger(error, interaction.user);
+      logger(error, interaction);
     }
   },
 };

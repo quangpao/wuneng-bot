@@ -37,7 +37,7 @@ module.exports = {
       const toggle = interaction.options.getString("toggle");
       await setRepeatMode(interaction, queue, toggle);
     } catch (error) {
-      logger(error, interaction.user);
+      logger(error, interaction);
     }
   },
 };

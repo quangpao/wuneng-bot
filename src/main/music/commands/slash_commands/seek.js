@@ -31,7 +31,7 @@ module.exports = {
 
       queue.seek(duration);
     } catch (error) {
-      logger(error, interaction.user);
+      logger(error, interaction);
     }
 
     await interaction.reply("Song seek to..."); // SeekPosition

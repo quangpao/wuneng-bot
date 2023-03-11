@@ -35,7 +35,7 @@ module.exports = {
       });
       await collectionHandler(interaction);
     } catch (error) {
-      logger(error, interaction.user);
+      logger(error, interaction);
     }
   },
 };

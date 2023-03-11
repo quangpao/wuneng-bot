@@ -30,9 +30,12 @@ module.exports = {
 
     try {
       // Collect jump menu interaction
-      await collectorHandler(interaction, queue);
+      await collectorHandler(interaction, distube);
       distube.removeAllListeners("playSong");
 
+      await interaction.update("Jumping to selected song...", {
+        components: [],
+      });
       const song = await queue.jump(parseInt(interaction.values[0]));
 
       // Update jump menu
@@ -42,12 +45,12 @@ module.exports = {
         songs.slice(1)
       );
 
-      await interaction.update({
+      await interaction.editReply({
         embeds: [JumpedSong(song)],
         components: rows,
       });
     } catch (error) {
-      logger(error, interaction.user);
+      logger(error, interaction);
     }
   },
 };

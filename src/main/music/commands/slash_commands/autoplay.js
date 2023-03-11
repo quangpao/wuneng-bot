@@ -29,7 +29,7 @@ module.exports = {
     try {
       toggleAutoplay(queue.toggleAutoplay(), interaction, queue);
     } catch (error) {
-      logger(error, interaction.user);
+      logger(error, interaction);
     }
   },
 };

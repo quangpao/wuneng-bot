@@ -30,7 +30,7 @@ module.exports = {
       const song = await queue.previous();
       await interaction.reply({ embeds: [PreviousSong(song)] });
     } catch (error) {
-      logger(error, interaction.user);
+      logger(error, interaction);
     }
   },
 };

@@ -25,7 +25,7 @@ module.exports = {
       queue = await queue.shuffle();
       await interaction.reply("Queue shuffled");
     } catch (error) {
-      logger(error, interaction.user);
+      logger(error, interaction);
     }
   },
 };
