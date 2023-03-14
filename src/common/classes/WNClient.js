@@ -5,7 +5,7 @@ const { Client, GatewayIntentBits, Collection } = require("discord.js");
 const { DisTube } = require("distube");
 const Config = require("../config");
 const interactionHandler = require("../handlers/interaction.handler");
-const waterMarkRate = 1048576;
+const waterMarkRate = 1 << 25;
 
 class WNClient extends Client {
   constructor() {
