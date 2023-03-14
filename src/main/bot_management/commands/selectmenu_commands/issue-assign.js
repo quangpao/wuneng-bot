@@ -1,5 +1,13 @@
-const { MentionableSelectMenuInteraction, Guild } = require("discord.js");
-const { AssignEmbedBuilder } = require("../../builders/assign.builder");
+const {
+  MentionableSelectMenuInteraction,
+  Guild,
+  Message,
+  TextChannel,
+} = require("discord.js");
+const {
+  AssignEmbedBuilder,
+  AssignRowBuilder,
+} = require("../../builders/assign.builder");
 const { IssueMentionBuilder } = require("../../builders/issue.builder");
 
 module.exports = {
@@ -28,14 +36,20 @@ module.exports = {
       });
 
     await interaction.update({ components: [] });
-    await interaction.client.channels.cache.get("1084869247706091640").send({
-      embeds: [
-        AssignEmbedBuilder(
-          interaction.message,
-          interaction.users.get(interaction.values[0]),
-          interaction.extraData
-        ),
-      ],
+    const /** @type TextChannel */ textChannel =
+        interaction.client.channels.cache.get("1084869247706091640");
+    const /** @type Message */ message = await textChannel.send({
+        embeds: [
+          AssignEmbedBuilder(
+            interaction.message,
+            interaction.users.get(interaction.values[0]),
+            interaction.extraData
+          ),
+        ],
+      });
+
+    await textChannel.send({
+      components: [AssignRowBuilder(message.id)],
     });
   },
 };
