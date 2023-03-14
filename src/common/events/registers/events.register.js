@@ -18,6 +18,7 @@ module.exports = (client) => {
 
     for (const file of eventFolders) {
       require(`../../../main/${folder}/events/${file}`)(client);
+      console.log(`Loaded event: ${file}`);
     }
   }
 };

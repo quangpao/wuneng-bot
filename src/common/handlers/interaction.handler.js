@@ -55,6 +55,19 @@ const selectmenuHandler = async (interaction, client) => {
   }
 };
 
+const modalHandler = async (interaction, client) => {
+  const [ customId, extraData ] = interaction.customId.split(" ");
+  const command = client.modalCommands.get(customId);
+  if (!command) return;
+  if (extraData) interaction.extraData = extraData;
+
+  try {
+    await command.execute(interaction, client);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 /**
  * @param {Interaction} interaction
  * @param {WNClient} client
@@ -66,6 +79,8 @@ const interactionHandler = async (interaction, client) => {
     slashCommandHandler(interaction, client);
   } else if (interaction.isAnySelectMenu()) {
     selectmenuHandler(interaction, client);
+  } else if (interaction.isModalSubmit()) {
+    modalHandler(interaction, client);
   }
 };
 

@@ -19,8 +19,8 @@ module.exports = {
       .setTimestamp()
       .addFields([
         {
-          name: `**STATUS**: OPEN`,
-          value: `Starting analyzing and working on defect fix.`,
+          name: `ㅤ`,
+          value: `**Status**: OPEN`,
         },
       ]);
     return embed;

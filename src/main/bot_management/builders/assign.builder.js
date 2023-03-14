@@ -18,7 +18,7 @@ module.exports = {
   AssignEmbedBuilder: (message, assigner, id) => {
     const embed = new EmbedBuilder()
       .setTitle(`Issue ID: ${id}`)
-      .setDescription(`**Assign to**: <@${assigner.id}>`)
+      .setDescription(`\n**Assign to**: <@${assigner.id}>`)
       .setURL(message.url)
       .setTimestamp()
       .setColor(INFO.DARK);

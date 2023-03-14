@@ -1,7 +1,7 @@
 const {
   EmbedBuilder,
   ActionRowBuilder,
-  MentionableSelectMenuBuilder,
+  UserSelectMenuBuilder,
 } = require("discord.js");
 const { ERROR } = require("../../../common/utils/Color");
 
@@ -47,7 +47,7 @@ module.exports = {
 };
 
 function createIssueMentionBuilder(id = undefined) {
-  const mentionBuilder = new MentionableSelectMenuBuilder()
+  const mentionBuilder = new UserSelectMenuBuilder()
     .setPlaceholder("Assign to a developer")
     .setMinValues(1)
     .setMaxValues(1);

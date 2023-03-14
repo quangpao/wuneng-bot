@@ -9,6 +9,7 @@ const {
   AssignRowBuilder,
 } = require("../../builders/assign.builder");
 const { IssueMentionBuilder } = require("../../builders/issue.builder");
+const channels = require("../../utils/channels");
 
 module.exports = {
   data: IssueMentionBuilder(),
@@ -22,13 +23,6 @@ module.exports = {
     const assigner = interaction.members.get(interaction.values[0]);
     const role = guild.roles.cache.get("1084850100322447521");
 
-    if (!assigner) {
-      return await interaction.reply({
-        content: "The chosen option is not a user",
-        ephemeral: true,
-      });
-    }
-
     if (!assigner.roles.cache.has(role.id))
       return await interaction.reply({
         content: `The user <@${assigner.id}> is not a developer`,
@@ -36,8 +30,7 @@ module.exports = {
       });
 
     await interaction.update({ components: [] });
-    const /** @type TextChannel */ textChannel =
-        interaction.client.channels.cache.get("1084869247706091640");
+    const /** @type TextChannel */ textChannel = channels.issues(interaction);
     const /** @type Message */ message = await textChannel.send({
         embeds: [
           AssignEmbedBuilder(
