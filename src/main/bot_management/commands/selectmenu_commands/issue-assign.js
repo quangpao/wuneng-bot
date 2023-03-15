@@ -36,10 +36,10 @@ module.exports = {
         AssignEmbedBuilder(
           interaction.message,
           interaction.users.get(interaction.values[0]),
-          interaction.extraData
+          sourceMessage.id
         ),
       ],
-      components: [AssignRowBuilder(sourceMessage.id)],
+      components: [AssignRowBuilder()],
     });
   },
 };

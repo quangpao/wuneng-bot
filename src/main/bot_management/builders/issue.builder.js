@@ -38,24 +38,20 @@ module.exports = {
     return createIssueMentionBuilder();
   },
 
-  IssueRowBuilder: (id = undefined) => {
+  IssueRowBuilder: () => {
     const row = new ActionRowBuilder().addComponents(
-      createIssueMentionBuilder(id)
+      createIssueMentionBuilder()
     );
     return row;
   },
 };
 
-function createIssueMentionBuilder(id = undefined) {
+function createIssueMentionBuilder() {
   const mentionBuilder = new UserSelectMenuBuilder()
+    .setCustomId(`issue`)
     .setPlaceholder("Assign to a developer")
     .setMinValues(1)
     .setMaxValues(1);
 
-  if (id) {
-    mentionBuilder.setCustomId(`issue ${id}`);
-  } else {
-    mentionBuilder.setCustomId(`issue`);
-  }
   return mentionBuilder;
 }

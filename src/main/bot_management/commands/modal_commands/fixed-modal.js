@@ -18,14 +18,11 @@ module.exports = {
     const mergeRequest = interaction.fields.getTextInputValue("merge-request");
     const sourceMessage = interaction.message;
 
-    await interaction.update({
-      components: [],
-    });
+    await interaction.update({ components: [] });
 
     await channels.report(interaction).send({
-      content: `The issue has been fixed and requested a review`,
       embeds: [FixedEmbedBuilder(sourceMessage, timeEffort, mergeRequest)],
-      components: [ReviewRowBuilder(sourceMessage.id)],
+      components: [ReviewRowBuilder()],
     });
   },
 };

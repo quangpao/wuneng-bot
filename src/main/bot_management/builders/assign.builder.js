@@ -79,14 +79,15 @@ module.exports = {
     return createAssignBuilder();
   },
 
-  AssignRowBuilder: (id) => {
-    const row = new ActionRowBuilder().addComponents([createAssignBuilder(id)]);
+  AssignRowBuilder: () => {
+    const row = new ActionRowBuilder().addComponents([createAssignBuilder()]);
     return row;
   },
 };
 
-function createAssignBuilder(id = undefined) {
+function createAssignBuilder() {
   const builder = new StringSelectMenuBuilder()
+    .setCustomId(`assign`)
     .setMinValues(1)
     .setMaxValues(1)
     .setPlaceholder(`Update issue status`)
@@ -107,12 +108,6 @@ function createAssignBuilder(id = undefined) {
         value: "duplicated",
       },
     ]);
-
-  if (id) {
-    builder.setCustomId(`assign ${id}`);
-  } else {
-    builder.setCustomId(`assign`);
-  }
 
   return builder;
 }

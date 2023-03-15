@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 const WNClient = require("../classes/WNClient");
 const { REST } = require("@discordjs/rest");
 const { Routes } = require("discord-api-types/v10");

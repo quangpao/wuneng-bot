@@ -38,8 +38,10 @@ module.exports = {
     return embed;
   },
 
-  FixedModalBuilder: (id = undefined) => {
-    const modal = new ModalBuilder().setTitle("Resolve issue information");
+  FixedModalBuilder: () => {
+    const modal = new ModalBuilder()
+      .setTitle("Resolve issue information")
+      .setCustomId(`fixed-modal`);
 
     const timeEffort = new TextInputBuilder()
       .setCustomId("time-effort")
@@ -58,12 +60,6 @@ module.exports = {
     const secondRow = new ActionRowBuilder().addComponents(mergeRequest);
 
     modal.addComponents(firstRow, secondRow);
-
-    if (id) {
-      modal.setCustomId(`fixed-modal ${id}`);
-    } else {
-      modal.setCustomId(`fixed-modal`);
-    }
 
     return modal;
   },

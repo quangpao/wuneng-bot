@@ -30,14 +30,15 @@ module.exports = {
     return createOpenBuilder();
   },
 
-  OpenRowBuilder: (id) => {
-    const row = new ActionRowBuilder().addComponents([createOpenBuilder(id)]);
+  OpenRowBuilder: () => {
+    const row = new ActionRowBuilder().addComponents([createOpenBuilder()]);
     return row;
   },
 };
 
-function createOpenBuilder(id = undefined) {
+function createOpenBuilder() {
   const builder = new StringSelectMenuBuilder()
+    .setCustomId(`open`)
     .setMinValues(1)
     .setMaxValues(1)
     .setPlaceholder(`Update issue status`)
@@ -53,12 +54,6 @@ function createOpenBuilder(id = undefined) {
         value: "deprecated",
       },
     ]);
-
-  if (id) {
-    builder.setCustomId(`open ${id}`);
-  } else {
-    builder.setCustomId(`open`);
-  }
 
   return builder;
 }

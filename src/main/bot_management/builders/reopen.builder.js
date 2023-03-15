@@ -36,7 +36,7 @@ module.exports = {
           },
           {
             name: `ㅤ`,
-            value: reasonLink,
+            value: `Link to the problem: [Link](${reasonLink})`,
           },
         ])
         .setFooter({
@@ -47,8 +47,10 @@ module.exports = {
     }
   },
 
-  ReopenModalBuilder: (id = undefined) => {
-    const modal = new ModalBuilder().setTitle("Reopen issue reason");
+  ReopenModalBuilder: () => {
+    const modal = new ModalBuilder()
+      .setTitle("Reopen issue reason")
+      .setCustomId(`reopen-modal`);
 
     const reason = new TextInputBuilder()
       .setCustomId("reopen-reason")
@@ -68,12 +70,6 @@ module.exports = {
     const secondRow = new ActionRowBuilder().addComponents(reasonLink);
 
     modal.addComponents(firstRow, secondRow);
-
-    if (id) {
-      modal.setCustomId(`reopen-modal ${id}`);
-    } else {
-      modal.setCustomId(`reopen-modal`);
-    }
 
     return modal;
   },

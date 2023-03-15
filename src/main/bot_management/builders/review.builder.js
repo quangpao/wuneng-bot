@@ -70,14 +70,15 @@ module.exports = {
     return createReviewBuilder();
   },
 
-  ReviewRowBuilder: (id) => {
-    const row = new ActionRowBuilder().addComponents([createReviewBuilder(id)]);
+  ReviewRowBuilder: () => {
+    const row = new ActionRowBuilder().addComponents([createReviewBuilder()]);
     return row;
   },
 };
 
-function createReviewBuilder(id = undefined) {
+function createReviewBuilder() {
   const builder = new StringSelectMenuBuilder()
+    .setCustomId(`review`)
     .setMinValues(1)
     .setMaxValues(1)
     .setPlaceholder(`Update review status`)
@@ -93,12 +94,6 @@ function createReviewBuilder(id = undefined) {
         value: "reopen",
       },
     ]);
-
-  if (id) {
-    builder.setCustomId(`review ${id}`);
-  } else {
-    builder.setCustomId(`review`);
-  }
 
   return builder;
 }

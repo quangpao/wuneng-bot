@@ -38,8 +38,10 @@ module.exports = {
     return embed;
   },
 
-  DeprecatedModalBuilder: (id = undefined) => {
-    const modal = new ModalBuilder().setTitle("Deprecated issue reason");
+  DeprecatedModalBuilder: () => {
+    const modal = new ModalBuilder()
+      .setTitle("Deprecated issue reason")
+      .setCustomId(`deprecated-modal`);
 
     const reason = new TextInputBuilder()
       .setCustomId("deprecated-reason")
@@ -51,12 +53,6 @@ module.exports = {
     const firstRow = new ActionRowBuilder().addComponents(reason);
 
     modal.addComponents(firstRow);
-
-    if (id) {
-      modal.setCustomId(`deprecated-modal ${id}`);
-    } else {
-      modal.setCustomId(`deprecated-modal`);
-    }
 
     return modal;
   },

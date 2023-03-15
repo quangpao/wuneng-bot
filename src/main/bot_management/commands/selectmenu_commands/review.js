@@ -21,19 +21,19 @@ module.exports = {
 
     switch (chosen) {
       case "verified": {
-        interaction.update({
+        await interaction.update({
           content: "",
           embeds: [VerifiedEmbedBuilder(sourceMessage, interaction.user)],
           components: [],
         });
 
-        textChannel.send({
+        await textChannel.send({
           embeds: [ClosedEmbedBuilder(sourceMessage, interaction.user)],
         });
         break;
       }
       case "reopen": {
-        interaction.showModal(ReopenModalBuilder(sourceMessage.id));
+        await interaction.showModal(ReopenModalBuilder());
         break;
       }
     }

@@ -17,11 +17,9 @@ module.exports = {
     const /** @type TextChannel */ textChannel = channels.future(interaction);
     const sourceMessage = interaction.message;
 
-    interaction.update({
-      components: [],
-    });
+    await interaction.update({ components: [] });
 
-    textChannel.send({
+    await textChannel.send({
       embeds: [DeprecatedEmbedBuilder(sourceMessage, interaction.user, reason)],
     });
   },

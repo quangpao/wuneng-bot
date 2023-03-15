@@ -26,7 +26,7 @@ module.exports = {
       case "open": {
         await interaction.update({
           embeds: [OpenEmbedBuilder(sourceMessage)],
-          components: [OpenRowBuilder(sourceMessage.id)],
+          components: [OpenRowBuilder()],
         });
         break;
       }

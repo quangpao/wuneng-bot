@@ -19,15 +19,13 @@ module.exports = {
     const /** @type TextChannel */ textChannel = channels.issues(interaction);
     const sourceMessage = interaction.message;
 
-    interaction.update({
-      components: [],
-    });
+    await interaction.update({ components: [] });
 
-    textChannel.send({
+    await textChannel.send({
       embeds: [
         ReopenEmbedBuilder(sourceMessage, interaction.user, reason, reasonLink),
       ],
-      components: [OpenRowBuilder(sourceMessage.id)],
+      components: [OpenRowBuilder()],
     });
   },
 };
