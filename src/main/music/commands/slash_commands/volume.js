@@ -1,7 +1,4 @@
-const {
-  ChatInputCommandInteraction,
-  ButtonInteraction,
-} = require("discord.js");
+const { ChatInputCommandInteraction } = require("discord.js");
 const { DisTube } = require("distube");
 const { logger } = require("../../../../common/utils/Utilities");
 const { volumeRowBuilder } = require("../../builders/action-row.builder");

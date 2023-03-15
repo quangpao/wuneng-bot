@@ -10,7 +10,6 @@
 	"rules": {
 		"arrow-spacing": ["warn", { "before": true, "after": true }],
         "camelcase": ["warn", { "properties": "always" }],
-        "default-case": "warn",
         "default-case-last": "warn",
         "eqeqeq": "error",
         "max-depth": ["error", 4],

@@ -1,8 +1,5 @@
 const { StopSlashBuilder } = require("../../builders/stop.builder");
 const { ChatInputCommandInteraction } = require("discord.js");
-const {
-  NotInVoiceChannelEmbedBuilder,
-} = require("../../../../common/builders/General");
 const { DisTube } = require("distube");
 const { QueueEmpty } = require("../../builders/embeds/queue.embed");
 const { isQueueExist } = require("../../utils/distube.check");

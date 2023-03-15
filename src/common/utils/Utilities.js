@@ -1,10 +1,13 @@
 const {
-  User,
   ChatInputCommandInteraction,
   ButtonInteraction,
   StringSelectMenuInteraction,
 } = require("discord.js");
-const { dashLogger } = require("../classes/logger");
+const {
+  IssueEmbedBuilder,
+  IssueRowBuilder,
+} = require("../../main/bot_management/builders/issue.builder");
+const channels = require("../../main/bot_management/utils/channels");
 
 module.exports = {
   delay: (ms) => new Promise((res) => setTimeout(res, ms)),
@@ -29,9 +32,17 @@ module.exports = {
    * @param {ChatInputCommandInteraction | ButtonInteraction | StringSelectMenuInteraction} interaction
    */
   logger: (error, interaction) => {
-    console.error(error);
-    dashLogger.error(`Error : ${error},Request : ${interaction.user.username}`);
-    dashLogger.error(`Command : ${interaction.commandName}`);
-    dashLogger.error(`CustomId : ${interaction.customId}`);
+    const id = idGenerator();
+    channels.logs(interaction).send({
+      embeds: [IssueEmbedBuilder(interaction, error, id)],
+      components: [IssueRowBuilder(id)],
+    });
   },
 };
+
+/**
+ * Generates a ID from timestamp
+ */
+function idGenerator() {
+  return new Date().getTime().toString(14);
+}

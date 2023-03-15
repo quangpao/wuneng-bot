@@ -5,7 +5,7 @@ const { Client, GatewayIntentBits, Collection } = require("discord.js");
 const { DisTube } = require("distube");
 const Config = require("../config");
 const interactionHandler = require("../handlers/interaction.handler");
-const _64GiB = 67108864;
+const waterMarkRate = 1 << 25;
 
 class WNClient extends Client {
   constructor() {
@@ -26,9 +26,11 @@ class WNClient extends Client {
     this.slashCommands = new Collection();
     this.buttonCommands = new Collection();
     this.selectmenuCommands = new Collection();
+    this.modalCommands = new Collection();
     this.slashCommandArray = [];
     this.cooldown = new Set();
     this.cooldownTime = 1000;
+
     this.distube = new DisTube(this, {
       searchSongs: 5,
       searchCooldown: 30,
@@ -39,7 +41,7 @@ class WNClient extends Client {
       ytdlOptions: {
         filter: "audioonly",
         quality: "highestaudio",
-        highWaterMark: _64GiB,
+        highWaterMark: waterMarkRate,
       },
       emitNewSongOnly: true,
       plugins: [
@@ -66,6 +68,7 @@ class WNClient extends Client {
       "events.register.js",
       "button-command.register",
       "selectmenu-command.register",
+      "modal-command.register",
     ].forEach((register) => {
       require(`../events/registers/${register}`)(this);
     });
