@@ -1,5 +1,6 @@
-/* eslint-disable default-case */
-const { StringSelectMenuInteraction, TextChannel } = require("discord.js");
+const { StringSelectMenuInteraction } = require("discord.js");
+const { DeprecatedModalBuilder } = require("../../builders/deprecated.builder");
+const { FixedModalBuilder } = require("../../builders/fixed.builder");
 const { OpenBuilder } = require("../../builders/open.builder");
 
 module.exports = {
@@ -10,24 +11,23 @@ module.exports = {
    * @param {StringSelectMenuInteraction} interaction
    */
   execute: async (interaction) => {
+    const role = interaction.guild.roles.cache.get("1084850100322447521");
+
+    if (!interaction.member.roles.cache.has(role.id))
+      return await interaction.reply({
+        content: `You are not a developer`,
+        ephemeral: true,
+      });
+
     const chosen = interaction.values[0];
-    const /** @type TextChannel */ textChannel =
-        interaction.client.channels.cache.get("1084869247706091640");
-    const sourceMessage = await textChannel.messages.fetch(
-      interaction.extraData
-    );
 
     switch (chosen) {
       case "fixed": {
-        // Send status to fixed and call fixed command to popup the modal to input the fix commit link
-        break;
-      }
-      case "transfer": {
-        // Transfer the issue to the other developer
+        await interaction.showModal(FixedModalBuilder());
         break;
       }
       case "deprecated": {
-        // Remove the issue and add it into the needing improvement list.
+        await interaction.showModal(DeprecatedModalBuilder());
         break;
       }
     }

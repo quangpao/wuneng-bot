@@ -1,17 +1,14 @@
 const { StringSelectMenuInteraction, TextChannel } = require("discord.js");
+const { ReopenModalBuilder } = require("../../builders/reopen.builder");
 const {
-  AssignBuilder,
-  DeferredEmbedBuilder,
-  DuplicatedEmbedBuilder,
-} = require("../../builders/assign.builder");
-const {
-  OpenEmbedBuilder,
-  OpenRowBuilder,
-} = require("../../builders/open.builder");
+  ReviewBuilder,
+  VerifiedEmbedBuilder,
+  ClosedEmbedBuilder,
+} = require("../../builders/review.builder");
 const channels = require("../../utils/channels");
 
 module.exports = {
-  data: AssignBuilder(),
+  data: ReviewBuilder(),
 
   /**
    *
@@ -31,28 +28,20 @@ module.exports = {
     const sourceMessage = interaction.message;
 
     switch (chosen) {
-      case "open": {
+      case "verified": {
         await interaction.update({
-          embeds: [OpenEmbedBuilder(sourceMessage)],
-          components: [OpenRowBuilder()],
-        });
-        break;
-      }
-      case "deferred": {
-        await interaction.update({
-          embeds: [DeferredEmbedBuilder(sourceMessage, interaction.user)],
+          content: "",
+          embeds: [VerifiedEmbedBuilder(sourceMessage, interaction.user)],
           components: [],
         });
+
         await textChannel.send({
-          embeds: [DeferredEmbedBuilder(sourceMessage, interaction.user)],
+          embeds: [ClosedEmbedBuilder(sourceMessage, interaction.user)],
         });
         break;
       }
-      case "duplicated": {
-        await interaction.update({
-          embeds: [DuplicatedEmbedBuilder(sourceMessage, interaction.user)],
-          components: [],
-        });
+      case "reopen": {
+        await interaction.showModal(ReopenModalBuilder());
         break;
       }
     }

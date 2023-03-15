@@ -15,13 +15,63 @@ module.exports = {
    * @param {string} id
    * @returns
    */
-  AssignEmbedBuilder: (message, assigner, id) => {
+  AssignEmbedBuilder: (message, assigner) => {
     const embed = new EmbedBuilder()
-      .setTitle(`Issue ID: ${id}`)
-      .setDescription(`**Assign to**: <@${assigner.id}>`)
+      .setTitle(message.embeds[0].title)
+      .setDescription(`\n**Assign to**: <@${assigner.id}>`)
       .setURL(message.url)
       .setTimestamp()
       .setColor(INFO.DARK);
+    return embed;
+  },
+
+  /**
+   *
+   * @param {Message} message
+   * @param {User} user
+   */
+  DeferredEmbedBuilder: (message, user) => {
+    const messageEmbed = message.embeds[0];
+    const embed = new EmbedBuilder()
+      .setTitle(messageEmbed.title)
+      .setDescription(messageEmbed.description)
+      .setURL(messageEmbed.url)
+      .setTimestamp()
+      .addFields([
+        {
+          name: `ㅤ`,
+          value: `**Status**: Deferred\nAdded into the development plan.`,
+        },
+      ])
+      .setFooter({
+        text: `Deferred set by ${user.username}`,
+        iconURL: user.displayAvatarURL({ dynamic: true }),
+      });
+    return embed;
+  },
+
+  /**
+   *
+   * @param {Message} message
+   * @param {User} user
+   */
+  DuplicatedEmbedBuilder: (message, user) => {
+    const messageEmbed = message.embeds[0];
+    const embed = new EmbedBuilder()
+      .setTitle(messageEmbed.title)
+      .setDescription(messageEmbed.description)
+      .setURL(messageEmbed.url)
+      .setTimestamp()
+      .addFields([
+        {
+          name: `ㅤ`,
+          value: `**Status**: Duplicated`,
+        },
+      ])
+      .setFooter({
+        text: `Duplicated set by ${user.username}`,
+        iconURL: user.displayAvatarURL({ dynamic: true }),
+      });
     return embed;
   },
 
@@ -29,14 +79,15 @@ module.exports = {
     return createAssignBuilder();
   },
 
-  AssignRowBuilder: (id) => {
-    const row = new ActionRowBuilder().addComponents([createAssignBuilder(id)]);
+  AssignRowBuilder: () => {
+    const row = new ActionRowBuilder().addComponents([createAssignBuilder()]);
     return row;
   },
 };
 
-function createAssignBuilder(id = undefined) {
+function createAssignBuilder() {
   const builder = new StringSelectMenuBuilder()
+    .setCustomId(`assign`)
     .setMinValues(1)
     .setMaxValues(1)
     .setPlaceholder(`Update issue status`)
@@ -57,12 +108,6 @@ function createAssignBuilder(id = undefined) {
         value: "duplicated",
       },
     ]);
-
-  if (id) {
-    builder.setCustomId(`assign ${id}`);
-  } else {
-    builder.setCustomId(`assign`);
-  }
 
   return builder;
 }

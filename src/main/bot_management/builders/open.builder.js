@@ -19,8 +19,8 @@ module.exports = {
       .setTimestamp()
       .addFields([
         {
-          name: `**STATUS**: OPEN`,
-          value: `Starting analyzing and working on defect fix.`,
+          name: `ㅤ`,
+          value: `**Status**: Open`,
         },
       ]);
     return embed;
@@ -30,14 +30,15 @@ module.exports = {
     return createOpenBuilder();
   },
 
-  OpenRowBuilder: (id) => {
-    const row = new ActionRowBuilder().addComponents([createOpenBuilder(id)]);
+  OpenRowBuilder: () => {
+    const row = new ActionRowBuilder().addComponents([createOpenBuilder()]);
     return row;
   },
 };
 
-function createOpenBuilder(id = undefined) {
+function createOpenBuilder() {
   const builder = new StringSelectMenuBuilder()
+    .setCustomId(`open`)
     .setMinValues(1)
     .setMaxValues(1)
     .setPlaceholder(`Update issue status`)
@@ -48,22 +49,11 @@ function createOpenBuilder(id = undefined) {
         value: "fixed",
       },
       {
-        label: `Transfer`,
-        description: `Transfer the bug to other developer.`,
-        value: "transfer",
-      },
-      {
         label: "Deprecated",
         description: `Mark the issue as deprecated (outdated, need to improve).`,
         value: "deprecated",
       },
     ]);
-
-  if (id) {
-    builder.setCustomId(`open ${id}`);
-  } else {
-    builder.setCustomId(`open`);
-  }
 
   return builder;
 }

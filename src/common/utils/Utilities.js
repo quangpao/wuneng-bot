@@ -7,6 +7,7 @@ const {
   IssueEmbedBuilder,
   IssueRowBuilder,
 } = require("../../main/bot_management/builders/issue.builder");
+const channels = require("../../main/bot_management/utils/channels");
 
 module.exports = {
   delay: (ms) => new Promise((res) => setTimeout(res, ms)),
@@ -32,12 +33,10 @@ module.exports = {
    */
   logger: (error, interaction) => {
     const id = idGenerator();
-    interaction.client.channels.cache
-      .get("1084882642182352946")
-      .send({
-        embeds: [IssueEmbedBuilder(interaction, error, id)],
-        components: [IssueRowBuilder(id)],
-      });
+    channels.logs(interaction).send({
+      embeds: [IssueEmbedBuilder(interaction, error, id)],
+      components: [IssueRowBuilder(id)],
+    });
   },
 };
 
