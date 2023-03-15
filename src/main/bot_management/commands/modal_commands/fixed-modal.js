@@ -3,6 +3,7 @@ const {
   FixedModalBuilder,
   FixedEmbedBuilder,
 } = require("../../builders/fixed.builder");
+const { ReviewRowBuilder } = require("../../builders/review.builder");
 const channels = require("../../utils/channels");
 
 module.exports = {
@@ -15,9 +16,7 @@ module.exports = {
   execute: async (interaction) => {
     const timeEffort = interaction.fields.getTextInputValue("time-effort");
     const mergeRequest = interaction.fields.getTextInputValue("merge-request");
-    const sourceMessage = await channels
-      .issues(interaction)
-      .messages.fetch(interaction.extraData);
+    const sourceMessage = interaction.message;
 
     await interaction.update({
       components: [],
@@ -26,6 +25,7 @@ module.exports = {
     await channels.report(interaction).send({
       content: `The issue has been fixed and requested a review`,
       embeds: [FixedEmbedBuilder(sourceMessage, timeEffort, mergeRequest)],
+      components: [ReviewRowBuilder(sourceMessage.id)],
     });
   },
 };

@@ -1,8 +1,6 @@
-/* eslint-disable default-case */
-const { StringSelectMenuInteraction, TextChannel } = require("discord.js");
+const { StringSelectMenuInteraction } = require("discord.js");
 const { FixedModalBuilder } = require("../../builders/fixed.builder");
 const { OpenBuilder } = require("../../builders/open.builder");
-const channels = require("../../utils/channels");
 
 module.exports = {
   data: OpenBuilder(),
@@ -13,10 +11,7 @@ module.exports = {
    */
   execute: async (interaction) => {
     const chosen = interaction.values[0];
-    const /** @type TextChannel */ textChannel = channels.issues(interaction);
-    const sourceMessage = await textChannel.messages.fetch(
-      interaction.extraData
-    );
+    const sourceMessage = interaction.message
 
     switch (chosen) {
       case "fixed": {

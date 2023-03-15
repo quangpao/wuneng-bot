@@ -1,6 +1,5 @@
-const { ActionRowBuilder } = require("@discordjs/builders");
 const {
-  StringSelectMenuBuilder,
+  ActionRowBuilder,
   ModalBuilder,
   TextInputBuilder,
   TextInputStyle,
@@ -69,30 +68,3 @@ module.exports = {
     return modal;
   },
 };
-
-function createFixedBuilder(id = undefined) {
-  const builder = new StringSelectMenuBuilder()
-    .setMinValues(1)
-    .setMaxValues(1)
-    .setPlaceholder(`Update issue status`)
-    .addOptions([
-      {
-        label: "Verified",
-        description: `Mark the issue as verified (close it as done).`,
-        value: "verified",
-      },
-      {
-        label: "Reopen",
-        description: `Mark the issue as reopen, assign it again to developer.`,
-        value: "reopen",
-      },
-    ]);
-
-  if (id) {
-    builder.setCustomId(`fixed ${id}`);
-  } else {
-    builder.setCustomId(`fixed`);
-  }
-
-  return builder;
-}

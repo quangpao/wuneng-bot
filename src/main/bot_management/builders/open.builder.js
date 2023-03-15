@@ -20,7 +20,7 @@ module.exports = {
       .addFields([
         {
           name: `ㅤ`,
-          value: `**Status**: OPEN`,
+          value: `**Status**: Open`,
         },
       ]);
     return embed;
