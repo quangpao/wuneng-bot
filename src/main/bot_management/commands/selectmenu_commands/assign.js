@@ -1,5 +1,9 @@
 const { StringSelectMenuInteraction, TextChannel } = require("discord.js");
-const { AssignBuilder } = require("../../builders/assign.builder");
+const {
+  AssignBuilder,
+  DeferredEmbedBuilder,
+  DuplicatedEmbedBuilder,
+} = require("../../builders/assign.builder");
 const {
   OpenEmbedBuilder,
   OpenRowBuilder,
@@ -15,7 +19,7 @@ module.exports = {
    */
   execute: async (interaction) => {
     const chosen = interaction.values[0];
-    const /** @type TextChannel */ textChannel = channels.issues(interaction);
+    const /** @type TextChannel */ textChannel = channels.future(interaction);
     const sourceMessage = interaction.message;
 
     switch (chosen) {
@@ -27,11 +31,20 @@ module.exports = {
         break;
       }
       case "deferred": {
-        // Remove old select menu and add issue to futute development
+        await interaction.update({
+          embeds: [DeferredEmbedBuilder(sourceMessage)],
+          components: [],
+        });
+        await textChannel.send({
+          embeds: [DeferredEmbedBuilder(sourceMessage)],
+        });
         break;
       }
       case "duplicated": {
-        // Remove old select menu and mark as duplicated
+        await interaction.update({
+          embeds: [DuplicatedEmbedBuilder(sourceMessage)],
+          components: [],
+        });
         break;
       }
     }

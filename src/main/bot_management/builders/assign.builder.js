@@ -25,6 +25,56 @@ module.exports = {
     return embed;
   },
 
+  /**
+   *
+   * @param {Message} message
+   * @param {User} user
+   */
+  DeferredEmbedBuilder: (message, user) => {
+    const messageEmbed = message.embeds[0];
+    const embed = new EmbedBuilder()
+      .setTitle(messageEmbed.title)
+      .setDescription(messageEmbed.description)
+      .setURL(messageEmbed.url)
+      .setTimestamp()
+      .addFields([
+        {
+          name: `ㅤ`,
+          value: `**Status**: Deferred\nAdded into the development plan.`,
+        },
+      ])
+      .setFooter({
+        text: `Deferred set by ${user.username}`,
+        iconURL: user.displayAvatarURL({ dynamic: true }),
+      });
+    return embed;
+  },
+
+  /**
+   *
+   * @param {Message} message
+   * @param {User} user
+   */
+  DuplicatedEmbedBuilder: (message, user) => {
+    const messageEmbed = message.embeds[0];
+    const embed = new EmbedBuilder()
+      .setTitle(messageEmbed.title)
+      .setDescription(messageEmbed.description)
+      .setURL(messageEmbed.url)
+      .setTimestamp()
+      .addFields([
+        {
+          name: `ㅤ`,
+          value: `**Status**: Duplicated`,
+        },
+      ])
+      .setFooter({
+        text: `Duplicated set by ${user.username}`,
+        iconURL: user.displayAvatarURL({ dynamic: true }),
+      });
+    return embed;
+  },
+
   AssignBuilder: () => {
     return createAssignBuilder();
   },

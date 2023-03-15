@@ -1,4 +1,5 @@
 const { StringSelectMenuInteraction } = require("discord.js");
+const { DeprecatedModalBuilder } = require("../../builders/deprecated.builder");
 const { FixedModalBuilder } = require("../../builders/fixed.builder");
 const { OpenBuilder } = require("../../builders/open.builder");
 
@@ -19,7 +20,7 @@ module.exports = {
         break;
       }
       case "deprecated": {
-        // Remove the issue and add it into the needing improvement list.
+        await interaction.showModal(DeprecatedModalBuilder(sourceMessage.id));
         break;
       }
     }

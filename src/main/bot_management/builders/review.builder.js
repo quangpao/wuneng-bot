@@ -36,6 +36,12 @@ module.exports = {
     return embed;
   },
 
+  /**
+   *
+   * @param {Message} message
+   * @param {User} user
+   * @returns
+   */
   ClosedEmbedBuilder: (message, user) => {
     const messageEmbed = message.embeds[0];
     const embed = new EmbedBuilder()

@@ -4,9 +4,19 @@ const {
   TextInputBuilder,
   TextInputStyle,
   ActionRowBuilder,
+  Message,
+  User,
 } = require("discord.js");
 
 module.exports = {
+  /**
+   *
+   * @param {Message} message
+   * @param {User} user
+   * @param {string} reason
+   * @param {string} reasonLink
+   * @returns
+   */
   ReopenEmbedBuilder: (message, user, reason, reasonLink) => {
     {
       const messageEmbed = message.embeds[0];
