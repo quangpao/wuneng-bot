@@ -15,9 +15,9 @@ module.exports = {
    * @param {string} id
    * @returns
    */
-  AssignEmbedBuilder: (message, assigner, id) => {
+  AssignEmbedBuilder: (message, assigner) => {
     const embed = new EmbedBuilder()
-      .setTitle(`Issue ID: ${id}`)
+      .setTitle(message.embeds[0].title)
       .setDescription(`\n**Assign to**: <@${assigner.id}>`)
       .setURL(message.url)
       .setTimestamp()

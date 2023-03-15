@@ -18,9 +18,15 @@ module.exports = {
    * @param {MentionableSelectMenuInteraction} interaction
    */
   execute: async (interaction) => {
-    const /** @type Guild */ guild = interaction.guild;
+    const role = interaction.guild.roles.cache.get("1084850100322447521");
+
+    if (!interaction.member.roles.cache.has(role.id))
+      return await interaction.reply({
+        content: `You are not a developer`,
+        ephemeral: true,
+      });
+
     const assigner = interaction.members.get(interaction.values[0]);
-    const role = guild.roles.cache.get("1084850100322447521");
     const sourceMessage = interaction.message;
 
     if (!assigner.roles.cache.has(role.id))
@@ -34,9 +40,8 @@ module.exports = {
     await textChannel.send({
       embeds: [
         AssignEmbedBuilder(
-          interaction.message,
-          interaction.users.get(interaction.values[0]),
-          sourceMessage.id
+          sourceMessage,
+          interaction.users.get(interaction.values[0])
         ),
       ],
       components: [AssignRowBuilder()],

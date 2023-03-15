@@ -15,6 +15,14 @@ module.exports = {
    * @param {StringSelectMenuInteraction} interaction
    */
   execute: async (interaction) => {
+    const role = interaction.guild.roles.cache.get("1084850100322447521");
+
+    if (!interaction.member.roles.cache.has(role.id))
+      return await interaction.reply({
+        content: `You are not a developer`,
+        ephemeral: true,
+      });
+
     const chosen = interaction.values[0];
     const /** @type TextChannel */ textChannel = channels.future(interaction);
     const sourceMessage = interaction.message;

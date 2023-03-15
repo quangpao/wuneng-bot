@@ -55,7 +55,7 @@ module.exports = {
           value: `**Status**: Closed`,
         },
         {
-          name: `${messageEmbed.fields[2].value}`,
+          name: `${messageEmbed.fields[1].name}`,
           value: `${messageEmbed.fields[1].value}`,
         },
       ])
