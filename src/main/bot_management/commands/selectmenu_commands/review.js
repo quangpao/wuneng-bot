@@ -1,4 +1,5 @@
 const { StringSelectMenuInteraction, TextChannel } = require("discord.js");
+const { ReopenModalBuilder } = require("../../builders/reopen.builder");
 const {
   ReviewBuilder,
   VerifiedEmbedBuilder,
@@ -32,6 +33,7 @@ module.exports = {
         break;
       }
       case "reopen": {
+        interaction.showModal(ReopenModalBuilder(sourceMessage.id));
         break;
       }
     }

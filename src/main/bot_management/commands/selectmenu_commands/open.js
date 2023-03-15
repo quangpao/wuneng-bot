@@ -11,15 +11,11 @@ module.exports = {
    */
   execute: async (interaction) => {
     const chosen = interaction.values[0];
-    const sourceMessage = interaction.message
+    const sourceMessage = interaction.message;
 
     switch (chosen) {
       case "fixed": {
         await interaction.showModal(FixedModalBuilder(sourceMessage.id));
-        break;
-      }
-      case "transfer": {
-        // Transfer the issue to the other developer
         break;
       }
       case "deprecated": {

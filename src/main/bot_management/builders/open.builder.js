@@ -48,11 +48,6 @@ function createOpenBuilder(id = undefined) {
         value: "fixed",
       },
       {
-        label: `Transfer`,
-        description: `Transfer the bug to other developer.`,
-        value: "transfer",
-      },
-      {
         label: "Deprecated",
         description: `Mark the issue as deprecated (outdated, need to improve).`,
         value: "deprecated",
