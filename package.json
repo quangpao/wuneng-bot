@@ -1,6 +1,6 @@
 {
   "name": "wuneng-bot",
-  "version": "0.0.1",
+  "version": "0.2.1",
   "description": "This is a ultimate discord bot with a lot of function.",
   "main": "index.js",
   "scripts": {
