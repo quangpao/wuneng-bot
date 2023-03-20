@@ -15,7 +15,6 @@ module.exports = {
    */
   execute: async (interaction) => {
     const role = interaction.guild.roles.cache.get("1084850100322447521");
-
     if (!interaction.member.roles.cache.has(role.id))
       return await interaction.reply({
         content: `You are not a developer`,
@@ -27,12 +26,26 @@ module.exports = {
     const sourceMessage = interaction.message;
 
     await interaction.update({
-      embeds: [FixedEmbedBuilder(sourceMessage, timeEffort, mergeRequest)],
+      embeds: [
+        FixedEmbedBuilder(
+          sourceMessage,
+          interaction.user,
+          timeEffort,
+          mergeRequest
+        ),
+      ],
       components: [],
     });
 
     await channels.report(interaction).send({
-      embeds: [FixedEmbedBuilder(sourceMessage, timeEffort, mergeRequest)],
+      embeds: [
+        FixedEmbedBuilder(
+          sourceMessage,
+          interaction.user,
+          timeEffort,
+          mergeRequest
+        ),
+      ],
       components: [ReviewRowBuilder()],
     });
   },

@@ -47,7 +47,11 @@ module.exports = {
         cooldown.delete(interaction.user.id);
       }, cooldownTime);
     } catch (error) {
-      logger(error, interaction);
+      logger(
+        error,
+        interaction,
+        interaction.options.getNumber("duration").toString()
+      );
     }
 
     await interaction.reply("Song seek to..."); // SeekPosition

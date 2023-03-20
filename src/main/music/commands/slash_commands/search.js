@@ -52,7 +52,7 @@ module.exports = {
         cooldown.delete(interaction.user.id);
       }, cooldownTime);
     } catch (error) {
-      logger(error, interaction);
+      logger(error, interaction, name);
     }
   },
 };
