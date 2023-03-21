@@ -8,12 +8,12 @@ const { logger } = require("../../../../common/utils/Utilities");
 const { jumpRowBuilder } = require("../../builders/action-row.builder");
 const { PlaySong } = require("../../builders/embeds/distube-event.embed");
 const { JumpedSong } = require("../../builders/embeds/jump.embed");
-const { previousJumpMenuBuilder } = require("../../builders/jump.builder");
+const { PreviousJumpMenuBuilder } = require("../../builders/jump.builder");
 const { isQueueExist, isJumpable } = require("../../utils/distube.check");
 const { inVoiceChannel } = require("../../utils/permission.check");
 
 module.exports = {
-  data: previousJumpMenuBuilder(),
+  data: PreviousJumpMenuBuilder(),
 
   /**
    * Jump to previous song (SelectMenu)

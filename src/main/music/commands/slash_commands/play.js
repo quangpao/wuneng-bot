@@ -4,7 +4,6 @@ const {
   PermissionFlagsBits,
 } = require("discord.js");
 const { DisTube } = require("distube");
-const PlayBuilder = require("../../builders/play.builder");
 const Emoji = require("../../../../common/utils/Emoji");
 const {
   joinSpeakerCheck,
@@ -12,8 +11,10 @@ const {
   hasPermission,
 } = require("../../utils/permission.check");
 const { logger } = require("../../../../common/utils/Utilities");
+const { PlaySlashBuilder } = require("../../builders/play.builder");
+
 module.exports = {
-  data: PlayBuilder.slashBuilder(),
+  data: PlaySlashBuilder(),
 
   /**
    * Play music from song name(youtube) or url

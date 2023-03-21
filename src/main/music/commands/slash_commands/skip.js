@@ -2,11 +2,11 @@ const { ChatInputCommandInteraction } = require("discord.js");
 const { DisTube } = require("distube");
 const { logger } = require("../../../../common/utils/Utilities");
 const { SkipSong, NoSkip } = require("../../builders/embeds/skip.embed");
-const { slashBuilder } = require("../../builders/skip.builder");
+const { SkipSlashBuilder } = require("../../builders/skip.builder");
 const { isQueueExist } = require("../../utils/distube.check");
 
 module.exports = {
-  data: slashBuilder(),
+  data: SkipSlashBuilder(),
 
   /**
    * Skip current song and play next song

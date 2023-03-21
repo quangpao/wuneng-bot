@@ -1,17 +1,15 @@
 const { StringSelectMenuInteraction, TextChannel } = require("discord.js");
+const { AssignMenuBuilder } = require("../../builders/assign.builder");
 const {
-  AssignBuilder,
   DeferredEmbedBuilder,
   DuplicatedEmbedBuilder,
-} = require("../../builders/assign.builder");
-const {
-  OpenEmbedBuilder,
-  OpenRowBuilder,
-} = require("../../builders/open.builder");
+} = require("../../builders/embeds/assign.embed");
+const { OpenEmbedBuilder } = require("../../builders/embeds/open.embed");
+const { OpenRowBuilder } = require("../../builders/open.builder");
 const channels = require("../../utils/channels");
 
 module.exports = {
-  data: AssignBuilder(),
+  data: AssignMenuBuilder(),
 
   /**
    *

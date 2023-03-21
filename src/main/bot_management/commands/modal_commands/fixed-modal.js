@@ -1,8 +1,6 @@
 const { ModalSubmitInteraction } = require("discord.js");
-const {
-  FixedModalBuilder,
-  FixedEmbedBuilder,
-} = require("../../builders/fixed.builder");
+const { FixedEmbedBuilder } = require("../../builders/embeds/fixed.embed");
+const { FixedModalBuilder } = require("../../builders/fixed.builder");
 const { ReviewRowBuilder } = require("../../builders/review.builder");
 const channels = require("../../utils/channels");
 

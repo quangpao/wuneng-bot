@@ -1,7 +1,7 @@
 const { ChatInputCommandInteraction } = require("discord.js");
 const { DisTube } = require("distube");
 const { logger } = require("../../../../common/utils/Utilities");
-const { slashBuilder } = require("../../builders/seek.builder");
+const { SeekSlashBuilder } = require("../../builders/seek.builder");
 const { isQueueExist } = require("../../utils/distube.check");
 const {
   inVoiceChannel,
@@ -9,7 +9,7 @@ const {
 } = require("../../utils/permission.check");
 
 module.exports = {
-  data: slashBuilder(),
+  data: SeekSlashBuilder(),
 
   /**
    * Seek to a position in the current song (in seconds)

@@ -1,12 +1,6 @@
-const {
-  MentionableSelectMenuInteraction,
-  Guild,
-  TextChannel,
-} = require("discord.js");
-const {
-  AssignEmbedBuilder,
-  AssignRowBuilder,
-} = require("../../builders/assign.builder");
+const { MentionableSelectMenuInteraction, TextChannel } = require("discord.js");
+const { AssignRowBuilder } = require("../../builders/assign.builder");
+const { AssignEmbedBuilder } = require("../../builders/embeds/assign.embed");
 const { IssueMentionBuilder } = require("../../builders/issue.builder");
 const channels = require("../../utils/channels");
 
