@@ -7,7 +7,7 @@ const {
   QueueRepeatMode,
   DisabledRepeatMode,
 } = require("../../builders/embeds/repeat.embed");
-const { slashBuilder } = require("../../builders/repeat.builder");
+const { RepeatSlashBuilder } = require("../../builders/repeat.builder");
 const { isQueueExist } = require("../../utils/distube.check");
 const {
   joinSpeakerCheck,
@@ -15,7 +15,7 @@ const {
 } = require("../../utils/permission.check");
 
 module.exports = {
-  data: slashBuilder(),
+  data: RepeatSlashBuilder(),
 
   /**
    * Toggle repeat mode (off, song, queue)

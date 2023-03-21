@@ -10,12 +10,12 @@ const {
   SelectJump,
   SelectJumpTimedOut,
 } = require("../../builders/embeds/jump.embed");
-const { slashBuilder } = require("../../builders/jump.builder");
+const { JumpSlashBuilder } = require("../../builders/jump.builder");
 const { isQueueExist, isJumpable } = require("../../utils/distube.check");
 const { inVoiceChannel } = require("../../utils/permission.check");
 
 module.exports = {
-  data: slashBuilder(),
+  data: JumpSlashBuilder(),
 
   /**
    * Jump to specific position in queue

@@ -1,7 +1,7 @@
 const { SlashCommandBuilder } = require("discord.js");
 
 module.exports = {
-  slashBuilder: () => {
+  SkipSlashBuilder: () => {
     const builder = new SlashCommandBuilder()
       .setName("skip")
       .setDescription("Skip the current song");

@@ -1,7 +1,7 @@
 const { SlashCommandBuilder } = require("discord.js");
 
 module.exports = {
-  slashBuilder: () => {
+  RepeatSlashBuilder: () => {
     const builder = new SlashCommandBuilder()
       .setName("repeat")
       .setDescription(

@@ -5,11 +5,11 @@ const {
   NoPrevious,
   PreviousSong,
 } = require("../../builders/embeds/previous.embed");
-const { slashBuilder } = require("../../builders/previous.builder");
+const { PreviousSlashBuilder } = require("../../builders/previous.builder");
 const { isQueueExist } = require("../../utils/distube.check");
 
 module.exports = {
-  data: slashBuilder(),
+  data: PreviousSlashBuilder(),
 
   /**
    * Play previous song

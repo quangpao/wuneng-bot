@@ -1,7 +1,7 @@
 const { SlashCommandBuilder } = require("discord.js");
 
 module.exports = {
-  slashBuilder: () => {
+  PreviousSlashBuilder: () => {
     const builder = new SlashCommandBuilder()
       .setName("previous")
       .setDescription("Play the previous song");

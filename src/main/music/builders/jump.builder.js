@@ -2,7 +2,7 @@ const { SlashCommandBuilder, StringSelectMenuBuilder } = require("discord.js");
 const { Song } = require("distube");
 
 module.exports = {
-  slashBuilder: () => {
+  JumpSlashBuilder: () => {
     const builder = new SlashCommandBuilder()
       .setName("jump")
       .setDescription("Jump to a specific song in the queue");
@@ -13,7 +13,7 @@ module.exports = {
    *
    * @param {Song[]} previousSongs
    */
-  previousJumpMenuBuilder: (previousSongs = []) => {
+  PreviousJumpMenuBuilder: (previousSongs = []) => {
     const builder = new StringSelectMenuBuilder()
       .setCustomId("previousjump")
       .setPlaceholder("Select Previous Song");
@@ -31,7 +31,7 @@ module.exports = {
    *
    * @param {Song[]} nextSongs
    */
-  nextJumpMenuBuilder: (nextSongs = []) => {
+  NextJumpMenuBuilder: (nextSongs = []) => {
     const builder = new StringSelectMenuBuilder()
       .setCustomId("nextjump")
       .setPlaceholder("Select Next Song");

@@ -1,7 +1,7 @@
 const { SlashCommandBuilder } = require("discord.js");
 
 module.exports = {
-  slashBuilder: () => {
+  SeekSlashBuilder: () => {
     const builder = new SlashCommandBuilder()
       .setName("seek")
       .setDescription("Seek playing time to another position")

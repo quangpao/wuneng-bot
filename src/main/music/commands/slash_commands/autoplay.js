@@ -1,7 +1,7 @@
 const { ChatInputCommandInteraction } = require("discord.js");
 const { DisTube, Queue } = require("distube");
 const { logger } = require("../../../../common/utils/Utilities");
-const { slashBuilder } = require("../../builders/autoplay.builder");
+const { AutoplaySlashBuilder } = require("../../builders/autoplay.builder");
 const Autoplay = require("../../builders/embeds/autoplay.embed");
 const { isQueueExist } = require("../../utils/distube.check");
 const {
@@ -10,7 +10,7 @@ const {
 } = require("../../utils/permission.check");
 
 module.exports = {
-  data: slashBuilder(),
+  data: AutoplaySlashBuilder(),
 
   /**
    * Distube autoplay toggle
