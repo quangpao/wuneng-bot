@@ -53,7 +53,7 @@ module.exports = {
         },
         {
           name: "Error message:",
-          value: error,
+          value: error.slice(0, 999),
           inline: false,
         }
       )

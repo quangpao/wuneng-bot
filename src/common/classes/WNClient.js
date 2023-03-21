@@ -28,6 +28,7 @@ class WNClient extends Client {
     this.selectmenuCommands = new Collection();
     this.modalCommands = new Collection();
     this.slashCommandArray = [];
+    this.slashCommandCategories = [];
     this.cooldown = new Set();
     this.cooldownTime = 1000;
 
@@ -65,10 +66,10 @@ class WNClient extends Client {
   start(token) {
     [
       "slash-command.register",
-      "events.register.js",
       "button-command.register",
       "selectmenu-command.register",
       "modal-command.register",
+      "events.register.js",
     ].forEach((register) => {
       require(`../events/registers/${register}`)(this);
     });
