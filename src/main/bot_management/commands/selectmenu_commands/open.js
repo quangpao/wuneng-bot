@@ -1,10 +1,10 @@
 const { StringSelectMenuInteraction } = require("discord.js");
 const { DeprecatedModalBuilder } = require("../../builders/deprecated.builder");
 const { FixedModalBuilder } = require("../../builders/fixed.builder");
-const { OpenBuilder } = require("../../builders/open.builder");
+const { OpenMenuBuilder } = require("../../builders/open.builder");
 
 module.exports = {
-  data: OpenBuilder(),
+  data: OpenMenuBuilder(),
 
   /**
    *

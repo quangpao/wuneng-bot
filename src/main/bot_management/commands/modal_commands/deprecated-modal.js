@@ -1,8 +1,8 @@
 const { ModalSubmitInteraction, TextChannel } = require("discord.js");
+const { DeprecatedModalBuilder } = require("../../builders/deprecated.builder");
 const {
-  DeprecatedModalBuilder,
   DeprecatedEmbedBuilder,
-} = require("../../builders/deprecated.builder");
+} = require("../../builders/embeds/deprecated.embed");
 const channels = require("../../utils/channels");
 
 module.exports = {

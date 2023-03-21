@@ -1,9 +1,7 @@
 const { ModalSubmitInteraction, TextChannel } = require("discord.js");
+const { ReopenEmbedBuilder } = require("../../builders/embeds/reopen.embed");
 const { OpenRowBuilder } = require("../../builders/open.builder");
-const {
-  ReopenModalBuilder,
-  ReopenEmbedBuilder,
-} = require("../../builders/reopen.builder");
+const { ReopenModalBuilder } = require("../../builders/reopen.builder");
 const channels = require("../../utils/channels");
 
 module.exports = {

@@ -1,14 +1,14 @@
 const { StringSelectMenuInteraction, TextChannel } = require("discord.js");
-const { ReopenModalBuilder } = require("../../builders/reopen.builder");
 const {
-  ReviewBuilder,
   VerifiedEmbedBuilder,
   ClosedEmbedBuilder,
-} = require("../../builders/review.builder");
+} = require("../../builders/embeds/review.embed");
+const { ReopenModalBuilder } = require("../../builders/reopen.builder");
+const { ReviewMenuBuilder } = require("../../builders/review.builder");
 const channels = require("../../utils/channels");
 
 module.exports = {
-  data: ReviewBuilder(),
+  data: ReviewMenuBuilder(),
 
   /**
    *
