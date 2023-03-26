@@ -9,6 +9,11 @@ const {
 } = require("../../utils/permission.check");
 
 module.exports = {
+  info: {
+    name: "seek [duration]",
+    description:
+      "Seek the specific duration of the current song.<br><br>Example: `/seek 100`.\nSeek the position 1m40s (1 minute 40 seconds)",
+  },
   data: SeekSlashBuilder(),
 
   /**

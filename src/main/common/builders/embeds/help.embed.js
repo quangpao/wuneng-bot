@@ -57,4 +57,17 @@ module.exports = {
 
     return embed;
   },
+
+  HelpInformationEmbed: (information, locale, user) => {
+    const embed = new EmbedBuilder()
+      .setAuthor({
+        name: user.username,
+        iconURL: user.avatarURL(),
+      })
+      .setTitle(`**\`${information.name}\`** - Command Information`)
+      .setDescription(information.description)
+      .setColor("#9c66ff");
+
+    return embed;
+  },
 };

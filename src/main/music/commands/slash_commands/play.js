@@ -14,6 +14,12 @@ const { logger } = require("../../../../common/utils/Utilities");
 const { PlaySlashBuilder } = require("../../builders/play.builder");
 
 module.exports = {
+  info: {
+    name: "play [URL/name]",
+    description:
+      "Play the song based on the input URL or name.\nThe name option will search for the most accordant song and add it to the queue.\n\nExample: `/play flowers miley` will play the song [Miley Cyrus - Flowers (Lyrics)](https://www.youtube.com/watch?v=xleJPaDWpwc) or the remains.",
+  },
+
   data: PlaySlashBuilder(),
 
   /**

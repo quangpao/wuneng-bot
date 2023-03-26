@@ -10,6 +10,12 @@ const {
 } = require("../../utils/permission.check");
 
 module.exports = {
+  info: {
+    name: "autoplay",
+    description:
+      "Turn `on/off` the autoplay mode.\nThis mode will play the `first song` it found in the related list.",
+  },
+
   data: AutoplaySlashBuilder(),
 
   /**

@@ -5,6 +5,8 @@ const {
 } = require("discord.js");
 const {
   IssueEmbedBuilder,
+} = require("../../main/bot_management/builders/embeds/issue.embed");
+const {
   IssueRowBuilder,
 } = require("../../main/bot_management/builders/issue.builder");
 const channels = require("../../main/bot_management/utils/channels");

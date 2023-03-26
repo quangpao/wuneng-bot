@@ -29,6 +29,7 @@ class WNClient extends Client {
     this.modalCommands = new Collection();
     this.slashCommandArray = [];
     this.slashCommandCategories = [];
+    this.slashCommandInformation = new Collection();
     this.cooldown = new Set();
     this.cooldownTime = 1000;
 

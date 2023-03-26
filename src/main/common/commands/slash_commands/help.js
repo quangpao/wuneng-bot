@@ -11,26 +11,18 @@ const {
 } = require("../../builders/help.builder");
 
 module.exports = {
+  info: {
+    name: "help",
+    description: "Show all commands",
+  },
+
   data: HelpSlashBuilder(),
 
   /**
    *
    * @param {ChatInputCommandInteraction} interaction
    */
-  execute: async (
-    interaction,
-    { cooldown, cooldownTime, slashCommandCategories }
-  ) => {
-    if (cooldown.has(interaction.user.id)) {
-      await interaction.reply({
-        content: `Please wait ${
-          cooldownTime / 1000
-        } more second(s) before reusing the command.`,
-        ephemeral: true,
-      });
-      return;
-    }
-
+  execute: async (interaction, { slashCommandCategories }) => {
     try {
       const locale = interaction.locale;
       await collectorHandler(interaction, slashCommandCategories, locale);
@@ -39,12 +31,6 @@ module.exports = {
         embeds: [HelpMainMenuEmbed(interaction.client.user)],
         components: [HelpSelectMenuRowBuilder(slashCommandCategories, locale)],
       });
-
-      // Add user to cooldown
-      cooldown.add(interaction.user.id);
-      setTimeout(() => {
-        cooldown.delete(interaction.user.id);
-      }, cooldownTime);
     } catch (error) {
       logger(error, interaction);
     }

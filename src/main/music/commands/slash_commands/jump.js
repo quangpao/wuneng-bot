@@ -15,6 +15,12 @@ const { isQueueExist, isJumpable } = require("../../utils/distube.check");
 const { inVoiceChannel } = require("../../utils/permission.check");
 
 module.exports = {
+  info: {
+    name: "jump",
+    description:
+      "Jump to the specific song (`forward or backward`)by choosing it in the dropdown menu.",
+  },
+
   data: JumpSlashBuilder(),
 
   /**

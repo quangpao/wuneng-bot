@@ -15,6 +15,12 @@ const {
 } = require("../../utils/permission.check");
 
 module.exports = {
+  info: {
+    name: "repeat [mode]",
+    description:
+      "Repeat based on the input mode. There are 3 modes now: **Song**, **Queue**, and **Disable**. \n**Song** mode: Repeat a _single song_. (If your song gets stuck, try to disable the repeat mode first).\n**Queue** mode: Repeat a _whole queue_.\n**Disable** mode: Turn _off_ the repeat mode.\n\nExample: `/repeat Queue`.",
+  },
+
   data: RepeatSlashBuilder(),
 
   /**

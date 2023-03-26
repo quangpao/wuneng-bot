@@ -6,6 +6,10 @@ const { SkipSlashBuilder } = require("../../builders/skip.builder");
 const { isQueueExist } = require("../../utils/distube.check");
 
 module.exports = {
+  info: {
+    name: "skip",
+    description: "Skip current song and play next song",
+  },
   data: SkipSlashBuilder(),
 
   /**

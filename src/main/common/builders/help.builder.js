@@ -20,12 +20,13 @@ module.exports = {
   HelpSelectMenuRowBuilder: (
     categories = [],
     locale = null,
-    disable = false
+    disable = false,
+    choice = -1
   ) => {
     const row = new ActionRowBuilder();
 
     const categoryMenu = new StringSelectMenuBuilder()
-      .setCustomId("help-category")
+      .setCustomId(`help-category`)
       .setMaxValues(1)
       .setDisabled(disable);
 
@@ -35,8 +36,48 @@ module.exports = {
         value: category,
       });
     }
+
+    categoryMenu.setPlaceholder(
+      choice === -1 ? "Select a category" : categories[choice].category
+    );
     row.addComponents([categoryMenu]);
     return row;
+  },
+
+  HelpInfoSelectMenuRowBuilder: (
+    commands = [],
+    locale = null,
+    disable = false,
+    category = -1,
+    choice = -1
+  ) => {
+    const row = new ActionRowBuilder();
+
+    const infoMenu = new StringSelectMenuBuilder()
+      .setCustomId(`help-info ${category}`)
+      .setMaxValues(1)
+      .setDisabled(disable);
+
+    for (const command in commands) {
+      infoMenu.addOptions({
+        label: commands[command].name,
+        value: command,
+      });
+    }
+
+    infoMenu.setPlaceholder(
+      choice === -1 ? "Select a command" : commands[choice].name
+    );
+
+    row.addComponents([infoMenu]);
+    return row;
+  },
+
+  HelpInfoSelectMenuBuilder: () => {
+    const builder = new StringSelectMenuBuilder()
+      .setCustomId("help-info")
+      .setMaxValues(1);
+    return builder;
   },
 
   HelpSelectMenuBuilder: () => {
