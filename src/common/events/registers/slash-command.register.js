@@ -9,7 +9,12 @@ module.exports = (client) => {
     .filter((dir) => dir.isDirectory())
     .map((dir) => dir.name);
 
-  const { slashCommands, slashCommandArray, slashCommandCategories } = client;
+  const {
+    slashCommands,
+    slashCommandArray,
+    slashCommandCategories,
+    slashCommandInformation,
+  } = client;
   for (const folder of projectFolders) {
     if (!existsSync(`./src/main/${folder}/commands/slash_commands`)) continue;
 
@@ -21,13 +26,16 @@ module.exports = (client) => {
       category: stringNormalize(folder),
       commands: [],
     };
+
     for (const file of commandsFiles) {
       const command = require(`../../../main/${folder}/commands/slash_commands/${file}`);
       slashCommands.set(command.data.name, command);
       slashCommandArray.push(command.data.toJSON());
       category.commands.push(command.data);
+      slashCommandInformation.set(command.data.name, command.info);
       console.log(`Slash command ${command.data.name} loaded!`);
     }
+
     slashCommandCategories.push(category);
   }
 };

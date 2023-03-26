@@ -6,6 +6,11 @@ const { ShuffleSlashBuilder } = require("../../builders/shuffle.builder");
 const { isQueueExist } = require("../../utils/distube.check");
 
 module.exports = {
+  info: {
+    name: "shuffle",
+    description:
+      "Shuffle the queue order. The first one can be the last one or somewhere else in the queue.",
+  },
   data: ShuffleSlashBuilder(),
 
   /**

@@ -11,6 +11,11 @@ const {
 } = require("../../utils/permission.check");
 
 module.exports = {
+  info: {
+    name: "volume",
+    description:
+      "Adjust the song volume (It will be set back to `100` after having a new queue.",
+  },
   data: VolumeSlashBuilder(),
 
   /**

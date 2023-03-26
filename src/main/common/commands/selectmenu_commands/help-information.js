@@ -1,31 +1,38 @@
 const {
-  StringSelectMenuInteraction,
   ComponentType,
   TextChannel,
+  StringSelectMenuInteraction,
 } = require("discord.js");
 const { logger } = require("../../../../common/utils/Utilities");
-const { HelpCategoryEmbed } = require("../../builders/embeds/help.embed");
+const { HelpInformationEmbed } = require("../../builders/embeds/help.embed");
 const {
-  HelpSelectMenuBuilder,
-  HelpSelectMenuRowBuilder,
+  HelpInfoSelectMenuBuilder,
   HelpInfoSelectMenuRowBuilder,
+  HelpSelectMenuRowBuilder,
 } = require("../../builders/help.builder");
 
 module.exports = {
-  data: HelpSelectMenuBuilder(),
+  data: HelpInfoSelectMenuBuilder(),
 
   /**
    * @param {StringSelectMenuInteraction} interaction
    */
-  execute: async (interaction, { slashCommandCategories }) => {
+  execute: async (
+    interaction,
+    { slashCommandCategories, slashCommandInformation }
+  ) => {
     try {
       const locale = interaction.locale;
       await collectorHandler(interaction, slashCommandCategories, locale);
 
       await interaction.update({
         embeds: [
-          HelpCategoryEmbed(
-            slashCommandCategories[interaction.values[0]],
+          HelpInformationEmbed(
+            slashCommandInformation.get(
+              slashCommandCategories[interaction.extraData].commands[
+                interaction.values[0]
+              ].name
+            ),
             locale,
             interaction.client.user
           ),
@@ -35,12 +42,13 @@ module.exports = {
             slashCommandCategories,
             locale,
             false,
-            interaction.values[0]
+            interaction.extraData
           ),
           HelpInfoSelectMenuRowBuilder(
-            slashCommandCategories[interaction.values[0]].commands,
+            slashCommandCategories[interaction.extraData].commands,
             locale,
             false,
+            interaction.extraData,
             interaction.values[0]
           ),
         ],
@@ -70,12 +78,14 @@ async function collectorHandler(interaction, slashCommandCategories, locale) {
             slashCommandCategories,
             locale,
             true,
-            interaction.values[0]
+            interaction.extraData
           ),
           HelpInfoSelectMenuRowBuilder(
-            slashCommandCategories[interaction.values[0]].commands,
+            slashCommandCategories[interaction.extraData].commands,
             locale,
-            true
+            true,
+            interaction.extraData,
+            interaction.values[0]
           ),
         ],
       });

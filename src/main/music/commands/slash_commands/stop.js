@@ -6,6 +6,10 @@ const { isQueueExist } = require("../../utils/distube.check");
 const { inVoiceChannel } = require("../../utils/permission.check");
 const { logger } = require("../../../../common/utils/Utilities");
 module.exports = {
+  info: {
+    name: "stop",
+    description: "Stop playing the song and clear the whole queue.",
+  },
   data: StopSlashBuilder(),
 
   /**

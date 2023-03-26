@@ -5,7 +5,7 @@ module.exports = {
   /**
    *
    * @param {ChatInputCommandInteraction | ButtonInteraction | StringSelectMenuInteraction | MentionableSelectMenuInteraction } interaction
-   * @param {string} error
+   * @param {Error} error
    * @param {string} id
    * @param {string} suffix
    * @returns
@@ -45,7 +45,7 @@ module.exports = {
         },
         {
           name: "Error message:",
-          value: error.slice(0, 999),
+          value: error.stack.slice(0, 1024),
           inline: false,
         }
       )
