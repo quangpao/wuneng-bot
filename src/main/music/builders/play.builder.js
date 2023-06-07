@@ -2,7 +2,7 @@ const { SlashCommandBuilder, ButtonBuilder } = require("discord.js");
 const Emoji = require("../../../common/utils/Emoji");
 
 module.exports = {
-  slashBuilder: () => {
+  PlaySlashBuilder: () => {
     const builder = new SlashCommandBuilder()
       .setName("play")
       .setDescription("Play a song in a voice channel")
@@ -15,7 +15,7 @@ module.exports = {
     return builder;
   },
 
-  buttonBuilder: () => {
+  PlayButtonBuilder: () => {
     const builder = new ButtonBuilder()
       .setCustomId("playbtn")
       .setStyle("PRIMARY")

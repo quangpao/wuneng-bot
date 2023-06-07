@@ -2,11 +2,16 @@ const { ChatInputCommandInteraction } = require("discord.js");
 const { DisTube } = require("distube");
 const { logger } = require("../../../../common/utils/Utilities");
 const { ShuffeItSelf } = require("../../builders/embeds/shuffle.embed");
-const { slashBuilder } = require("../../builders/shuffle.builder");
+const { ShuffleSlashBuilder } = require("../../builders/shuffle.builder");
 const { isQueueExist } = require("../../utils/distube.check");
 
 module.exports = {
-  data: slashBuilder(),
+  info: {
+    name: "shuffle",
+    description:
+      "Shuffle the queue order. The first one can be the last one or somewhere else in the queue.",
+  },
+  data: ShuffleSlashBuilder(),
 
   /**
    * Shuffle queue list

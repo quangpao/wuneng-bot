@@ -3,11 +3,16 @@ const { DisTube } = require("distube");
 const { logger } = require("../../../../common/utils/Utilities");
 const { queueRowBuilder } = require("../../builders/action-row.builder");
 const { Queue, QueueAutoplay } = require("../../builders/embeds/queue.embed");
-const queueBuilder = require("../../builders/queue.builder");
+const { QueueSlashBuilder } = require("../../builders/queue.builder");
 const { isQueueExist } = require("../../utils/distube.check");
 
 module.exports = {
-  data: queueBuilder.slashBuilder(),
+  info: {
+    name: "queue",
+    description: "Show the song queue and some common information.",
+  },
+
+  data: QueueSlashBuilder(),
 
   /**
    * Show queue list

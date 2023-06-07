@@ -1,13 +1,4 @@
-const {
-  ChatInputCommandInteraction,
-  ButtonInteraction,
-  StringSelectMenuInteraction,
-} = require("discord.js");
-const {
-  IssueEmbedBuilder,
-  IssueRowBuilder,
-} = require("../../main/bot_management/builders/issue.builder");
-const channels = require("../../main/bot_management/utils/channels");
+const { dashLogger } = require("../classes/logger");
 
 module.exports = {
   delay: (ms) => new Promise((res) => setTimeout(res, ms)),
@@ -29,14 +20,10 @@ module.exports = {
   /**
    * Logger for error handling into .log file
    * @param {error} error
-   * @param {ChatInputCommandInteraction | ButtonInteraction | StringSelectMenuInteraction} interaction
    */
-  logger: (error, interaction) => {
+  logger: (error) => {
     const id = idGenerator();
-    channels.logs(interaction).send({
-      embeds: [IssueEmbedBuilder(interaction, error, id)],
-      components: [IssueRowBuilder(id)],
-    });
+    dashLogger.log({ level: "error", message: `${id} - ${error}` });
   },
 };
 

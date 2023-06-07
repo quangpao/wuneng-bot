@@ -2,7 +2,7 @@ const { SlashCommandBuilder, ButtonBuilder } = require("discord.js");
 const Emoji = require("../../../common/utils/Emoji");
 
 module.exports = {
-  slashBuilder: () => {
+  QueueSlashBuilder: () => {
     const builder = new SlashCommandBuilder()
       .setName("queue")
       .setDescription("Show the music queue");

@@ -7,7 +7,7 @@ const {
   QueueRepeatMode,
   DisabledRepeatMode,
 } = require("../../builders/embeds/repeat.embed");
-const { slashBuilder } = require("../../builders/repeat.builder");
+const { RepeatSlashBuilder } = require("../../builders/repeat.builder");
 const { isQueueExist } = require("../../utils/distube.check");
 const {
   joinSpeakerCheck,
@@ -15,7 +15,13 @@ const {
 } = require("../../utils/permission.check");
 
 module.exports = {
-  data: slashBuilder(),
+  info: {
+    name: "repeat [mode]",
+    description:
+      "Repeat based on the input mode. There are 3 modes now: **Song**, **Queue**, and **Disable**. \n**Song** mode: Repeat a _single song_. (If your song gets stuck, try to disable the repeat mode first).\n**Queue** mode: Repeat a _whole queue_.\n**Disable** mode: Turn _off_ the repeat mode.\n\nExample: `/repeat Queue`.",
+  },
+
+  data: RepeatSlashBuilder(),
 
   /**
    * Toggle repeat mode (off, song, queue)
@@ -53,7 +59,7 @@ module.exports = {
         cooldown.delete(interaction.user.id);
       }, cooldownTime);
     } catch (error) {
-      logger(error, interaction);
+      logger(error, interaction, interaction.options.getString("toggle"));
     }
   },
 };

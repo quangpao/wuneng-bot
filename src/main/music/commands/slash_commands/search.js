@@ -12,6 +12,12 @@ const { SearchSlashBuilder } = require("../../builders/search.builder");
 const { inVoiceChannel } = require("../../utils/permission.check");
 
 module.exports = {
+  info: {
+    name: "search [query]",
+    description:
+      "Same as `/play` command. But you can choose a song to `play/add to queue` in the list including the 5 most related songs.\nExample: `/search flowers miley` will show up to 5 videos for you to choose from.",
+  },
+
   data: SearchSlashBuilder(),
   /**
    *
@@ -52,7 +58,7 @@ module.exports = {
         cooldown.delete(interaction.user.id);
       }, cooldownTime);
     } catch (error) {
-      logger(error, interaction);
+      logger(error, interaction, name);
     }
   },
 };

@@ -7,6 +7,12 @@ const { isQueueExist } = require("../../utils/distube.check");
 const { inVoiceChannel } = require("../../utils/permission.check");
 
 module.exports = {
+  info: {
+    name: "pause",
+    description:
+      "`Pause/Resume` the song temporarily.\n**Note**: This can be used to handle both _pause/resume_ options.",
+  },
+
   data: PauseSlashBuilder(),
 
   /**

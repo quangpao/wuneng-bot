@@ -3,7 +3,7 @@ const { DisTube } = require("distube");
 const { logger } = require("../../../../common/utils/Utilities");
 const { volumeRowBuilder } = require("../../builders/action-row.builder");
 const { VolumeInfo } = require("../../builders/embeds/volume.embed");
-const { slashBuilder } = require("../../builders/volume.builder");
+const { VolumeSlashBuilder } = require("../../builders/volume.builder");
 const { isQueueExist } = require("../../utils/distube.check");
 const {
   joinSpeakerCheck,
@@ -11,7 +11,12 @@ const {
 } = require("../../utils/permission.check");
 
 module.exports = {
-  data: slashBuilder(),
+  info: {
+    name: "volume",
+    description:
+      "Adjust the song volume (It will be set back to `100` after having a new queue.",
+  },
+  data: VolumeSlashBuilder(),
 
   /**
    * Change volume of music player

@@ -6,7 +6,7 @@ const {
 const Emoji = require("../../../common/utils/Emoji");
 
 module.exports = {
-  slashBuilder: () => {
+  VolumeSlashBuilder: () => {
     const builder = new SlashCommandBuilder()
       .setName("volume")
       .setDescription("Set the song volume");

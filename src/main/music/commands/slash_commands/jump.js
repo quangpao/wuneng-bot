@@ -10,12 +10,18 @@ const {
   SelectJump,
   SelectJumpTimedOut,
 } = require("../../builders/embeds/jump.embed");
-const { slashBuilder } = require("../../builders/jump.builder");
+const { JumpSlashBuilder } = require("../../builders/jump.builder");
 const { isQueueExist, isJumpable } = require("../../utils/distube.check");
 const { inVoiceChannel } = require("../../utils/permission.check");
 
 module.exports = {
-  data: slashBuilder(),
+  info: {
+    name: "jump",
+    description:
+      "Jump to the specific song (`forward or backward`)by choosing it in the dropdown menu.",
+  },
+
+  data: JumpSlashBuilder(),
 
   /**
    * Jump to specific position in queue

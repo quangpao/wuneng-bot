@@ -5,11 +5,17 @@ const {
   NoPrevious,
   PreviousSong,
 } = require("../../builders/embeds/previous.embed");
-const { slashBuilder } = require("../../builders/previous.builder");
+const { PreviousSlashBuilder } = require("../../builders/previous.builder");
 const { isQueueExist } = require("../../utils/distube.check");
 
 module.exports = {
-  data: slashBuilder(),
+  info: {
+    name: "previous",
+    description:
+      "Play the previous song in the queue \n(The queue won't show those songs up due to the command `/jump` added).",
+  },
+
+  data: PreviousSlashBuilder(),
 
   /**
    * Play previous song

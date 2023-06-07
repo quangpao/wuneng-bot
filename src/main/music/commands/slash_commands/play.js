@@ -4,7 +4,6 @@ const {
   PermissionFlagsBits,
 } = require("discord.js");
 const { DisTube } = require("distube");
-const PlayBuilder = require("../../builders/play.builder");
 const Emoji = require("../../../../common/utils/Emoji");
 const {
   joinSpeakerCheck,
@@ -12,8 +11,16 @@ const {
   hasPermission,
 } = require("../../utils/permission.check");
 const { logger } = require("../../../../common/utils/Utilities");
+const { PlaySlashBuilder } = require("../../builders/play.builder");
+
 module.exports = {
-  data: PlayBuilder.slashBuilder(),
+  info: {
+    name: "play [URL/name]",
+    description:
+      "Play the song based on the input URL or name.\nThe name option will search for the most accordant song and add it to the queue.\n\nExample: `/play flowers miley` will play the song [Miley Cyrus - Flowers (Lyrics)](https://www.youtube.com/watch?v=xleJPaDWpwc) or the remains.",
+  },
+
+  data: PlaySlashBuilder(),
 
   /**
    * Play music from song name(youtube) or url
@@ -54,7 +61,7 @@ module.exports = {
         cooldown.delete(interaction.user.id);
       }, cooldownTime);
     } catch (error) {
-      logger(error, interaction);
+      logger(error, interaction, interaction.options.getString("song"));
     }
 
     await interaction.deleteReply();

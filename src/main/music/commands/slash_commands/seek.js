@@ -1,7 +1,7 @@
 const { ChatInputCommandInteraction } = require("discord.js");
 const { DisTube } = require("distube");
 const { logger } = require("../../../../common/utils/Utilities");
-const { slashBuilder } = require("../../builders/seek.builder");
+const { SeekSlashBuilder } = require("../../builders/seek.builder");
 const { isQueueExist } = require("../../utils/distube.check");
 const {
   inVoiceChannel,
@@ -9,7 +9,12 @@ const {
 } = require("../../utils/permission.check");
 
 module.exports = {
-  data: slashBuilder(),
+  info: {
+    name: "seek [duration]",
+    description:
+      "Seek the specific duration of the current song.<br><br>Example: `/seek 100`.\nSeek the position 1m40s (1 minute 40 seconds)",
+  },
+  data: SeekSlashBuilder(),
 
   /**
    * Seek to a position in the current song (in seconds)
@@ -47,7 +52,11 @@ module.exports = {
         cooldown.delete(interaction.user.id);
       }, cooldownTime);
     } catch (error) {
-      logger(error, interaction);
+      logger(
+        error,
+        interaction,
+        interaction.options.getNumber("duration").toString()
+      );
     }
 
     await interaction.reply("Song seek to..."); // SeekPosition
