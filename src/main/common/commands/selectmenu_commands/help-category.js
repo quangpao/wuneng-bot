@@ -46,7 +46,7 @@ module.exports = {
         ],
       });
     } catch (error) {
-      logger(error, interaction);
+      logger(error);
     }
   },
 };
