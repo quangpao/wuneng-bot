@@ -5,6 +5,11 @@ const {
 } = require("discord.js");
 
 module.exports = {
+
+  /**
+   * 
+   * @returns {SlashCommandBuilder} builder
+   */
   HelpSlashBuilder: () => {
     const builder = new SlashCommandBuilder()
       .setName("help")
