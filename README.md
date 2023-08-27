@@ -1,5 +1,7 @@
 # 无能
 
+# This repo will me move to [Ineptigenex](https://github.com/quangpao/ineptigenex) for further implement.
+
 ## Environment setup
 
 ```bash
